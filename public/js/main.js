@@ -3,7 +3,7 @@ var app = angular.module('Kerfuffle', [])
 app.controller('ShowController', function($scope, $http, $timeout) {
     // declare some stuff
     $scope.result = '';
-    $scope.showResult = true;
+    // $scope.showResult = true;
     var init = true;
     var tempText = '', filterTextTimeout;
 
@@ -20,12 +20,14 @@ app.controller('ShowController', function($scope, $http, $timeout) {
                 $http.jsonp(url)
                     .success(function(data) {
                         if (data.length > 0){
-                            $scope.showResult = true;
+                            // $scope.showResult = false;
+                            
                             // slideOut();
                             // $scope.showResult = false;
                             $scope.result = data[0]['title'];
                             // $scope.showResult = true;
-                            // slideIn();
+                            // $scope.showResult = true;
+                            
 
                             // change();
                         }
