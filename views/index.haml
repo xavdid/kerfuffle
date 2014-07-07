@@ -7,7 +7,40 @@
       %i.fa.fa-search
     %input.form-control{type: "text", placeholder: "TV Show", "ng-model" => "query", "ng-trim" => "false"}
 
-  %h3.light.center{"ng-show" => "result"}
+  %h3.light.center.animated.fadeInLeft#result{"ng-show" => "result"}
     Were you looking for
     %strong
       {{ result }}?
+    %i.fa.fa-arrow-circle-right.ok
+
+:javascript
+  function yell() {
+    console.log('HIIIIII!');
+  };
+
+  // function change() {
+  //   $('#result').animate({opacity:0})
+  //     .queue(function(){
+  //       $(this).text("new text"); 
+  //       $(this).dequeue()
+  //     })
+  //     .animate({opacity:1}); 
+  // };
+  function slideIn() {
+    console.log('start in');
+    // $('#result').removeClass('fadeInLeft');
+    // $('#result').removeClass('fadeOutRight');
+    // $('#result').addClass('fadeInLeft');
+    $('#result').addClass('fadeInLeft').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){$(this).removeClass('fadeInLeft');});
+    console.log('end in');
+  };
+
+  function slideOut() {
+    console.log('start out');
+    
+    
+    $('#result').addClass('fadeOut').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){$(this).removeClass('fadeOut');});
+    // $('#result').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', slideIn());
+    // setInterval(function(){slideIn()},1000);
+    console.log('end out');
+  };
