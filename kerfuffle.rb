@@ -36,10 +36,15 @@ end
 
 get '/' do
   # needs to pass explicit symbol because of root url
+  # display :index
+  redirect '/search'
+end
+
+get '/search' do 
   display :index
 end
 
-get '/show/:id' do 
+get '/show' do 
   display :show
 end
 

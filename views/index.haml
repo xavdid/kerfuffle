@@ -1,7 +1,7 @@
 %h3.light.center
   What show do you want to watch?
 
-.mid{"ng-controller" => "ShowController"}
+.mid{"ng-controller" => "SearchController"}
   .input-group.input-group-lg.search
     %span.input-group-addon
       %i.fa.fa-search
@@ -11,7 +11,9 @@
     Were you looking for
     %strong
       {{ result }}?
-    %i.fa.fa-arrow-circle-right.ok
+    %a{href: '/show'}
+      %i.fa.fa-arrow-circle-right.ok
+      
 
 :javascript
   function yell() {

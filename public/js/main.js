@@ -1,6 +1,21 @@
-var app = angular.module('Kerfuffle', [])
+var app = angular.module('Kerfuffle', ['ngRoute'])
 
-app.controller('ShowController', function($scope, $http, $timeout) {
+app.config(['$routeProvider',function($routeProvider){
+    $routeProvider.
+        when('/', {
+            templateUrl: '/search',
+            controller: 'SearchController'
+        }).
+        when('/search/:showId', {
+            templateUrl: '/show',
+            controller: 'ShowController'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
+}]);
+
+app.controller('SearchController', function($scope, $http, $timeout) {
     // declare some stuff
     $scope.result = '';
     // $scope.showResult = true;
@@ -20,16 +35,8 @@ app.controller('ShowController', function($scope, $http, $timeout) {
                 $http.jsonp(url)
                     .success(function(data) {
                         if (data.length > 0){
-                            // $scope.showResult = false;
-                            
-                            // slideOut();
-                            // $scope.showResult = false;
                             $scope.result = data[0]['title'];
-                            // $scope.showResult = true;
-                            // $scope.showResult = true;
-                            
-
-                            // change();
+                            $scope.showId = data[0]['tvdb_id'];
                         }
                         else {
                             $scope.result = "Not Found";
@@ -44,4 +51,9 @@ app.controller('ShowController', function($scope, $http, $timeout) {
         }
     })
 });
+
+app.controller('ShowController', ['$routeParams', function($scope, $routeParams){
+    console.log($routeParams);
+    $scope.showName = $routeParams.showId;
+}]);
 
