@@ -1,6 +1,6 @@
 var app = angular.module('Kerfuffle', ['ngRoute', 'ngAnimate'])
 
-app.config(function($routeProvider, $locationProvider){
+app.config(function($routeProvider, $locationProvider, $animateProvider){
     $routeProvider.
         when('/', {
             templateUrl: '/render_search',
@@ -14,6 +14,9 @@ app.config(function($routeProvider, $locationProvider){
         //     redirectTo: '/'
         // });
 
+    // allows hiding of spinner. this witchcraft provided by
+    // http://stackoverflow.com/questions/24617821/stop-angular-animation-from-happening-on-ng-show-ng-hide
+    $animateProvider.classNameFilter(/^((?!(fa-cog)).)*$/);
     $locationProvider.html5Mode(true);
 });
 
