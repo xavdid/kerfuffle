@@ -1,48 +1,46 @@
-%h3.light.center
-  What show do you want to watch?
-
-.mid{"ng-controller" => "SearchController"}
-  .input-group.input-group-lg.search
-    %span.input-group-addon
-      %i.fa.fa-search
-    %input.form-control{type: "text", placeholder: "TV Show", "ng-model" => "query", "ng-trim" => "false", autofocus: true}
-
-  %h3.light.center.animated.fadeInLeft#result{"ng-show" => "result"}
-    Were you looking for
-    %strong
-      {{ result }}?
-    %a{href: '/show'}
-      %i.fa.fa-arrow-circle-right.ok
-      
-
-:javascript
-  function yell() {
-    console.log('HIIIIII!');
-  };
-
-  // function change() {
-  //   $('#result').animate({opacity:0})
-  //     .queue(function(){
-  //       $(this).text("new text"); 
-  //       $(this).dequeue()
-  //     })
-  //     .animate({opacity:1}); 
-  // };
-  function slideIn() {
-    console.log('start in');
-    // $('#result').removeClass('fadeInLeft');
-    // $('#result').removeClass('fadeOutRight');
-    // $('#result').addClass('fadeInLeft');
-    $('#result').addClass('fadeIn').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){$(this).removeClass('fadeIn');});
-    console.log('end in');
-  };
-
-  function slideOut() {
-    console.log('start out');
+!!!
+%html{"ng-app" => 'Kerfuffle'}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{"http-equiv" => "X-UA-Compatible", content: "IE=edge"}
     
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
+    %base{href: "/"}
     
-    $('#result').addClass('fadeOut').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){$(this).removeClass('fadeOut');});
-    // $('#result').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', slideIn());
-    // setInterval(function(){slideIn()},1000);
-    console.log('end out');
-  };
+    %title
+      Title!
+
+    / js
+    %script{src: "//code.jquery.com/jquery-1.10.2.min.js", type:"text/javascript"}
+    %script{src: "//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js", type: "text/javascript"}
+    %script{src: "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.js", type: "text/javascript"}
+    %script{src: "//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-route.js", type: "text/javascript"}
+    %script{src: "/js/main.js", type:"text/javascript"}
+    %srcipt{src: "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js", type: "text/javascript"}
+
+
+    /css
+    %link{rel: 'stylesheet', type: 'text/css', href: '/styles.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: '/stylesheets/animate.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: '//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'}
+    %link{rel: 'stylesheet', type: 'text/css', href: '//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'}
+
+    
+
+    / favicon
+    %link{:rel => 'shortcut icon', :type => 'image/png', :href => '/images/favicon.ico'}
+
+  %nav.navbar.navbar-inverse#big-bar{role: "navigation"}
+    .container-fluid
+      .navbar-header
+        %a{href: '/'}
+          %p.brand.navbar-brand
+            Kerfuffle!
+
+      -# .navbar-body
+      -#   %ul
+      -#     %li#users
+      -#       %a{}
+
+  .container
+    .ng-view

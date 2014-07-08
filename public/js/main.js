@@ -1,19 +1,21 @@
 var app = angular.module('Kerfuffle', ['ngRoute'])
 
-app.config(['$routeProvider',function($routeProvider){
+app.config(function($routeProvider, $locationProvider){
     $routeProvider.
         when('/', {
             templateUrl: '/search',
             controller: 'SearchController'
         }).
-        when('/search/:showId', {
+        when('/show/:showId', {
             templateUrl: '/show',
             controller: 'ShowController'
-        }).
-        otherwise({
-            redirectTo: '/'
         });
-}]);
+        // otherwise({
+        //     redirectTo: '/'
+        // });
+
+    $locationProvider.html5Mode(true);
+});
 
 app.controller('SearchController', function($scope, $http, $timeout) {
     // declare some stuff
@@ -52,8 +54,7 @@ app.controller('SearchController', function($scope, $http, $timeout) {
     })
 });
 
-app.controller('ShowController', ['$routeParams', function($scope, $routeParams){
-    console.log($routeParams);
+app.controller('ShowController', function($scope, $routeParams){
     $scope.showName = $routeParams.showId;
-}]);
+});
 

@@ -1,0 +1,16 @@
+%h3.light.center
+  What show do you want to watch?
+
+.mid{"ng-controller" => "SearchController"}
+  .input-group.input-group-lg.search
+    %span.input-group-addon
+      %i.fa.fa-search
+    %input.form-control{type: "text", placeholder: "TV Show", "ng-model" => "query", "ng-trim" => "false", autofocus: true}
+
+  %h3.light.center.animated.fadeInLeft#result{"ng-show" => "result"}
+    Were you looking for
+    %strong
+      {{ result }}?
+    %a{href: '/show/{{ showId }}'}
+      %i.fa.fa-arrow-circle-right.ok#next
+      
