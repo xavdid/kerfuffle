@@ -18,6 +18,10 @@ configure do
 end
 
 # helpers
+# so that the double routing doesn't totally fail
+not_found do
+  haml :index
+end
 
 # before each route is run
 before do
@@ -29,11 +33,11 @@ get '/' do
   haml :index
 end
 
-get '/search' do 
+get '/render_search' do 
   haml :search
 end
 
-get '/show/?*?' do 
+get '/render_show/?*?' do 
   haml :show
 end
 

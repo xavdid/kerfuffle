@@ -1,13 +1,13 @@
-var app = angular.module('Kerfuffle', ['ngRoute'])
+var app = angular.module('Kerfuffle', ['ngRoute', 'ngAnimate'])
 
 app.config(function($routeProvider, $locationProvider){
     $routeProvider.
         when('/', {
-            templateUrl: '/search',
+            templateUrl: '/render_search',
             controller: 'SearchController'
         }).
         when('/show/:showId', {
-            templateUrl: '/show',
+            templateUrl: '/render_show',
             controller: 'ShowController'
         });
         // otherwise({
@@ -15,6 +15,10 @@ app.config(function($routeProvider, $locationProvider){
         // });
 
     $locationProvider.html5Mode(true);
+});
+
+app.controller("MainController", function($scope) {
+
 });
 
 app.controller('SearchController', function($scope, $http, $timeout) {
