@@ -4,9 +4,11 @@
 .mid{"ng-controller" => "SearchController"}
   .input-group.input-group-lg.search
     %span.input-group-addon
-      %i.fa.fa-search
+      %i.fa.fa-search{"ng-show" => "!loading"}
+      %i.fa.fa-cog.fa-spin{"ng-show" => "loading"}
     %input.form-control{type: "text", placeholder: "TV Show", "ng-model" => "query", "ng-trim" => "false", autofocus: true}
-
+  %p
+    {{loading}}
   %h3.light.center.animated.fadeInLeft#result{"ng-show" => "result"}
     Were you looking for
     %strong

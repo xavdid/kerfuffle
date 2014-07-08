@@ -17,14 +17,10 @@ app.config(function($routeProvider, $locationProvider){
     $locationProvider.html5Mode(true);
 });
 
-app.controller("MainController", function($scope) {
-
-});
-
 app.controller('SearchController', function($scope, $http, $timeout) {
     // declare some stuff
     $scope.result = '';
-    // $scope.showResult = true;
+    $scope.loading = false;
     var init = true;
     var tempText = '', filterTextTimeout;
 
@@ -37,15 +33,19 @@ app.controller('SearchController', function($scope, $http, $timeout) {
 
             // loop
             filterTextTimeout = $timeout(function(){
+                $scope.loading = true;
                 var url = 'http://api.trakt.tv/search/shows.json/2fda7d38904aefdeb7da3222131906ad?query=' + tempText +'&seasons=1&callback=JSON_CALLBACK';
                 $http.jsonp(url)
                     .success(function(data) {
+                        $scope.loading = false;
                         if (data.length > 0){
                             $scope.result = data[0]['title'];
                             $scope.showId = data[0]['tvdb_id'];
+                            return true;
                         }
                         else {
                             $scope.result = "Not Found";
+                            return false;
                         }
                         // console.log(data);
                     })
