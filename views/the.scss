@@ -1,6 +1,6 @@
 // let's style!
 
-$footer-height: 40px;
+$footer-height: 60px;
 
 .mid {
     h1 {
@@ -67,10 +67,11 @@ $footer-height: 40px;
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: $footer-height;  
+    // height: $footer-height;
     background: #000;
     p {
-        padding-top: 10px;
+        // padding-top: 10px;
+        margin: 20px 0;
         padding-left: 1%;
         color: #777;
     }
