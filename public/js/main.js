@@ -20,10 +20,24 @@ app.config(function($routeProvider, $locationProvider, $animateProvider){
     $locationProvider.html5Mode(true);
 });
 
-app.controller('SearchController', function($scope, $http, $timeout) {
+app.service("showService",function(){
+    var show = '';
+
+    return {
+        getShow: function(){
+            return show;
+        },
+        setShow: function(data){
+            show = data;
+        }
+    };
+});
+
+app.controller('SearchController', function($scope, $http, $timeout, showService) {
     // declare some stuff
     $scope.result = '';
     $scope.loading = false;
+    $scope.showStuff = false;
     var init = true;
     var tempText = '', filterTextTimeout;
 
@@ -37,17 +51,20 @@ app.controller('SearchController', function($scope, $http, $timeout) {
             // loop
             filterTextTimeout = $timeout(function(){
                 $scope.loading = true;
-                var url = 'http://api.trakt.tv/search/shows.json/2fda7d38904aefdeb7da3222131906ad?query=' + tempText +'&seasons=1&callback=JSON_CALLBACK';
-                $http.jsonp(url)
+                // $scope.showStuff = false;
+                $http.get('/find_show/'+tempText)
                     .success(function(data) {
                         $scope.loading = false;
-                        if (data.length > 0){
-                            $scope.result = data[0]['title'];
-                            $scope.showId = data[0]['tvdb_id'];
-                            $scope.posterUrl = data[0]['images']['poster'];
-                            $scope.overview = data[0]['overview'];
+                        if (data['status'] == 200){
+                            $scope.showStuff = true;
+                            $scope.result = data['title'];
+                            $scope.showId = data['tvdb_id'];
+                            $scope.posterUrl = data['images']['poster'];
+                            $scope.overview = data['overview'];
+                            showService.setShow(data);
                         }
                         else {
+                            $scope.showStuff = false;
                             $scope.result = 'Not Found';
                             $scope.showId = '';
                             $scope.posterUrl = '';
@@ -64,7 +81,21 @@ app.controller('SearchController', function($scope, $http, $timeout) {
     })
 });
 
-app.controller('ShowController', function($scope, $routeParams){
-    $scope.showName = $routeParams.showId;
+app.controller('ShowController', function($scope, $http, $routeParams, showService){
+    var show = showService.getShow();
+    $scope.loading = true;
+    $scope.showName = show['title'];
+    $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
+        success(function(data){
+            $scope.loading = false;
+            $scope.seasonNum = data['season'];
+            $scope.episodeNum = data['number'];
+            $scope.episodeTitle = data['title'];
+        }).
+        error(function(){
+            $scope.loading = false;
+            console.log("oops");
+        });
+    $scope.showName = show['title'];
 });
 

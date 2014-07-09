@@ -10,3 +10,5 @@ gem 'json'
 # houston, we have a problem
 gem 'rack-test'
 gem 'minitest'
+
+gem 'httparty'

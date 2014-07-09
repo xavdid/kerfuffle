@@ -1,3 +1,14 @@
-.mid{"ng-controller" => "ShowController"}
-  %h3.center.light.fadeInLeft
+.mid
+  %h3.center
     {{ showName }}
+
+  %h3.center.light
+    How about Season
+    %strong
+      {{ seasonNum }}
+    Episode
+    %strong
+      {{ episodeNum }}
+    \-
+    %strong
+      {{ episodeTitle }}?

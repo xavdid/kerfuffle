@@ -1,21 +1,28 @@
-
 %h3.light.center
   What show do you want to watch?
 
-.mid{"ng-controller" => "SearchController"}
+.mid
   .input-group.input-group-lg.search
     %span.input-group-addon
       %i.fa.fa-search{"ng-show" => "!loading"}
       %i.fa.fa-cog.fa-spin{"ng-show" => "loading"}
     %input.form-control{type: "text", placeholder: "TV Show", "ng-model" => "query", "ng-trim" => "false", autofocus: true}
+
   %h3.light.center.animated.fadeInRight#result{"ng-show" => "result"}
     Were you looking for
     %strong
       {{ result }}?
+
+  / poster
+  %img.img-responsive.animated.fadeInLeft.poster.pull-left{src: "{{ posterUrl }}", "ng-show" => "showStuff"}
+
+  / shuffle button
+  .button.animated.fadeInRight.pull-right{"ng-show" => "showStuff"}
     %a{href: '/show/{{ showId }}'}
-      %i.fa.fa-arrow-circle-right.ok#next
+      %i.fa.fa-5x.fa-random.fa-border.go
 
-  %img.img-responsive.animated.fadeInLeft.poster.pull-left{src: "{{ posterUrl }}", "ng-show" => "result"}
-
-  %p.center.animated.fadeInUp#blurb{"ng-show" => "result"}
+  / text
+  %p.center.animated.fadeInUp#blurb{"ng-show" => "showStuff"}
     {{ overview }}
+
+  

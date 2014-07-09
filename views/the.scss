@@ -22,6 +22,10 @@ $footer-height: 40px;
         color: green;
     }
 
+    .go {
+        color: blue;
+    }
+
     .poster {
         height: 300px;
     }
@@ -31,9 +35,6 @@ $footer-height: 40px;
         padding-top: 2%;
         width: 80%;
     }
-
-    
-
     
 }
 
@@ -73,8 +74,8 @@ $footer-height: 40px;
 }
 
 div[ng-view].ng-enter {
-    -webkit-animation: fadeInRight 0.5s;
-    animation: fadeInRight 0.5s;
+    -webkit-animation: fadeInRight 1s;
+    animation: fadeInRight 1s;
 }
 
 div[ng-view].ng-leave {
