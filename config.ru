@@ -1,2 +1,2 @@
-require_relative '/kerfuffle.rb'
+require_relative './kerfuffle.rb'
 run Sinatra::Application
