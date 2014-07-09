@@ -83,7 +83,6 @@ app.controller('SearchController', function($scope, $http, $timeout, showService
 
 app.controller('ShowController', function($scope, $http, $routeParams, showService){
     $scope.fetch = function() {
-        console.log(show);
         var show = showService.getShow();
         $scope.loading = true;    
         $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
@@ -94,6 +93,7 @@ app.controller('ShowController', function($scope, $http, $routeParams, showServi
                 $scope.episodeTitle = data['title'];
                 $scope.overview = data['overview'];
                 $scope.posterUrl = data['images']['screen'];
+                $scope.showStuff = true;
             }).
             error(function(){
                 $scope.loading = false;
@@ -106,6 +106,7 @@ app.controller('ShowController', function($scope, $http, $routeParams, showServi
     };
 
     // main
+    $scope.showStuff = false;
     console.log($routeParams.showId);
     $http.get('/pull_show/'+$routeParams.showId)
         .success(function(data) {
