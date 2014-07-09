@@ -30,9 +30,18 @@ $footer-height: 60px;
         height: 300px;
     }
 
-    .screen {
-        margin-right: -6%;
-        width: 400px;
+    
+
+    .btn:focus {
+      outline: none;
+      background-color: inherit;
+    }
+    .btn:hover {
+        background-color: #e6e6e6;
+    }
+
+    #title-line, #episode-blurb {
+        text-align: center;
     }
 
     // phone only
@@ -44,7 +53,10 @@ $footer-height: 60px;
         #shuffle {
             padding-top: 10%;
             padding-bottom: 10%;
+            text-align: center;
         }
+
+        
     }
 
     // tablets and up
@@ -54,24 +66,19 @@ $footer-height: 60px;
             padding-top: 2%;
             width: 80%;
         }
-    }
-
-    
-
-    #episode-blurb {
-        width: 50%;
-    }
-
-    #title-line {
-        width: 70%;
-    }
-
-    .btn:focus {
-      outline: none;
-      background-color: inherit;
-    }
-    .btn:hover {
-        background-color: #e6e6e6;
+        #shuffle {
+            float: right;
+        }
+         #title-line {
+            width: 70%;
+        }
+        #episode-blurb {
+            width: 50%;
+        }
+        .screen {
+            margin-right: -6%;
+            width: 400px;
+        }
     }
     
 }

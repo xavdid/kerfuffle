@@ -81,27 +81,42 @@ app.controller('SearchController', function($scope, $http, $timeout, showService
     })
 });
 
-app.controller('ShowController', function($scope, $http, showService){
-    var show = showService.getShow();
+app.controller('ShowController', function($scope, $http, $routeParams, showService){
     $scope.fetch = function() {
+        console.log(show);
+        var show = showService.getShow();
         $scope.loading = true;    
         $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
-        success(function(data){
-            $scope.loading = false;
-            $scope.seasonNum = data['season'];
-            $scope.episodeNum = data['number'];
-            $scope.episodeTitle = data['title'];
-            $scope.overview = data['overview'];
-            $scope.posterUrl = data['images']['screen'];
-        }).
-        error(function(){
-            $scope.loading = false;
-            console.log("oops");
-        });
+            success(function(data){
+                $scope.loading = false;
+                $scope.seasonNum = data['season'];
+                $scope.episodeNum = data['number'];
+                $scope.episodeTitle = data['title'];
+                $scope.overview = data['overview'];
+                $scope.posterUrl = data['images']['screen'];
+            }).
+            error(function(){
+                $scope.loading = false;
+                console.log("oops");
+            });
+    };
+    $scope.init = function() {
+        $scope.showName = showService.getShow()['title'];
+        $scope.fetch();
     };
 
-    $scope.showName = show['title'];
-    $scope.fetch();
+    // main
+    console.log($routeParams.showId);
+    $http.get('/pull_show/'+$routeParams.showId)
+        .success(function(data) {
+            showService.setShow(data);
+            $scope.init();
+        })
+        .error(function(data, error) {
+            console.log("error! "+error);
+        });
+    
+    
     
 });
 

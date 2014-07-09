@@ -36,7 +36,7 @@ get '/' do
 end
 
 get '/find_show/:query' do
-  response = HTTParty.get("http://api.trakt.tv/search/shows.json/#{ENV['TRAKT_API_KEY']}?query=#{params[:query]}&seasons=1")[0]
+  response = HTTParty.get("http://api.trakt.tv/search/shows.json/#{ENV['TRAKT_API_KEY']}?query=#{params[:query]}")[0]
 
   if response
     response[:status] = 200
@@ -46,14 +46,21 @@ get '/find_show/:query' do
   end
 end
 
+get '/pull_show/:tvdb_id' do 
+  response = HTTParty.get("http://api.trakt.tv/show/summary.json/#{ENV['TRAKT_API_KEY']}/#{params[:tvdb_id]}/extended")
+  puts 'this is the show:'
+  pp response
+  return response.to_json
+end
+
 post '/random' do
   # this is because sinatra doesn't take json input, apparently
   show = JSON.parse(request.env["rack.input"].read)
 
-  episode = show['seasons'].reject{|hsh| hsh['season'] == 0}.sample['episodes'].sample
+  episode = show['seasons'].reject{|hsh| hsh['season'] == 0}.sample['episodes'].sample.to_json
   
-  response = HTTParty.get("http://api.trakt.tv/show/episode/summary.json/#{ENV['TRAKT_API_KEY']}/#{show['show_id']}/#{episode['season']}/#{episode['number']}")['episode']
-  response.to_json
+  # response = HTTParty.get("http://api.trakt.tv/show/episode/summary.json/#{ENV['TRAKT_API_KEY']}/#{show['show_id']}/#{episode['season']}/#{episode['number']}")['episode']
+  # response.to_json
 end
 
 get '/render_search' do 
