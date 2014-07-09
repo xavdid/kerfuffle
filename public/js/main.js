@@ -44,11 +44,14 @@ app.controller('SearchController', function($scope, $http, $timeout) {
                         if (data.length > 0){
                             $scope.result = data[0]['title'];
                             $scope.showId = data[0]['tvdb_id'];
-                            return true;
+                            $scope.posterUrl = data[0]['images']['poster'];
+                            $scope.overview = data[0]['overview'];
                         }
                         else {
-                            $scope.result = "Not Found";
-                            return false;
+                            $scope.result = 'Not Found';
+                            $scope.showId = '';
+                            $scope.posterUrl = '';
+                            $scope.overview = '';
                         }
                         // console.log(data);
                     })

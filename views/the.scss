@@ -1,6 +1,8 @@
 // let's style!
 
-.container {
+$footer-height: 40px;
+
+.mid {
     // h1 {
         // color: blue;
     // }
@@ -19,6 +21,38 @@
     .ok {
         color: green;
     }
+
+    .poster {
+        height: 300px;
+    }
+
+    #blurb {
+        padding-left: 20%;
+        padding-top: 2%;
+        width: 80%;
+    }
+
+    
+
+    
+}
+
+.mid {
+    padding-bottom: $footer-height;   
+}
+
+.bot {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;  
+    background: #000;
+    p {
+        padding-top: 10px;
+        padding-left: 3%;
+        color: white;
+    }
+    border-bottom: 1px solid white;
 }
 
 .brand {
@@ -33,7 +67,7 @@
 
 .slide {
     position: absolute;
-    top: 10%;
+    top: 15%;
     left: 10%;
     right: 10%;
 }
