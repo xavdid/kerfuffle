@@ -16,7 +16,7 @@ app.config(function($routeProvider, $locationProvider, $animateProvider){
 
     // allows hiding of spinner. this witchcraft provided by
     // http://stackoverflow.com/questions/24617821/stop-angular-animation-from-happening-on-ng-show-ng-hide
-    $animateProvider.classNameFilter(/^((?!(fa-cog)).)*$/);
+    $animateProvider.classNameFilter(/^((?!(fa-cog|fa-spinner)).)*$/);
     $locationProvider.html5Mode(true);
 });
 
@@ -81,21 +81,27 @@ app.controller('SearchController', function($scope, $http, $timeout, showService
     })
 });
 
-app.controller('ShowController', function($scope, $http, $routeParams, showService){
+app.controller('ShowController', function($scope, $http, showService){
     var show = showService.getShow();
-    $scope.loading = true;
-    $scope.showName = show['title'];
-    $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
+    $scope.fetch = function() {
+        $scope.loading = true;    
+        $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
         success(function(data){
             $scope.loading = false;
             $scope.seasonNum = data['season'];
             $scope.episodeNum = data['number'];
             $scope.episodeTitle = data['title'];
+            $scope.overview = data['overview'];
+            $scope.posterUrl = data['images']['screen'];
         }).
         error(function(){
             $scope.loading = false;
             console.log("oops");
         });
+    };
+
     $scope.showName = show['title'];
+    $scope.fetch();
+    
 });
 

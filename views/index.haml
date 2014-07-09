@@ -37,19 +37,24 @@
           %p.brand.navbar-brand
             Kerfuffle!
 
-      -# .navbar-body
-      -#   %ul
-      -#     %li#users
-      -#       %a{}
-
   .mid
     .container
       %div.slide{"ng-view" => true}
 
   .bot
-    -# .container
     %p
-      This is a footer
+      Made by
+      %a{href: "http://davidbrownman.com", target: "_blank"}<
+        David Brownman.
+      All content is pulled from the lovely
+      %a{href: "https://trakt.tv/", target: "_blank"}<
+        trakt
+      API and belongs to its respective copyright owners.
+      The 
+      %a{href: "https://github.com/Xavdidtheshadow/kerfuffle", target: "_blank"}<
+        code
+      is available if you're into that sort of thing.
+
 
 
 

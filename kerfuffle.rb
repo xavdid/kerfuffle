@@ -36,7 +36,7 @@ get '/' do
 end
 
 get '/find_show/:query' do
-  response = HTTParty.get("http://api.trakt.tv/search/shows.json/2fda7d38904aefdeb7da3222131906ad?query=#{params[:query]}&seasons=1")[0]
+  response = HTTParty.get("http://api.trakt.tv/search/shows.json/#{ENV['TRAKT_API_KEY']}?query=#{params[:query]}&seasons=1")[0]
 
   if response
     response[:status] = 200
@@ -52,7 +52,7 @@ post '/random' do
 
   episode = show['seasons'].reject{|hsh| hsh['season'] == 0}.sample['episodes'].sample
   
-  response = HTTParty.get("http://api.trakt.tv/show/episode/summary.json/2fda7d38904aefdeb7da3222131906ad/#{show['show_id']}/#{episode['season']}/#{episode['number']}")['episode']
+  response = HTTParty.get("http://api.trakt.tv/show/episode/summary.json/#{ENV['TRAKT_API_KEY']}/#{show['show_id']}/#{episode['season']}/#{episode['number']}")['episode']
   response.to_json
 end
 

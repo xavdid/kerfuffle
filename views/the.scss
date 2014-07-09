@@ -3,9 +3,9 @@
 $footer-height: 40px;
 
 .mid {
-    // h1 {
-        // color: blue;
-    // }
+    h1 {
+        margin-top: -3%;
+    }
     .search {
         padding-bottom: 20px;
         padding-top: 20px;
@@ -30,10 +30,31 @@ $footer-height: 40px;
         height: 300px;
     }
 
+    .screen {
+        margin-right: -6%;
+        width: 400px;
+    }
+
     #blurb {
         padding-left: 20%;
         padding-top: 2%;
         width: 80%;
+    }
+
+    #episode-blurb {
+        width: 50%;
+    }
+
+    #title-line {
+        width: 70%;
+    }
+
+    .btn:focus {
+      outline: none;
+      background-color: inherit;
+    }
+    .btn:hover {
+        background-color: #e6e6e6;
     }
     
 }
@@ -50,10 +71,18 @@ $footer-height: 40px;
     background: #000;
     p {
         padding-top: 10px;
-        padding-left: 3%;
-        color: white;
+        padding-left: 1%;
+        color: #777;
     }
-    border-bottom: 1px solid white;
+    border-bottom: 1px dotted white;
+    a{
+        color: #777;
+        text-decoration: underline;
+        &:hover {
+            color: white;
+            text-decoration: none;
+        }
+    }
 }
 
 .brand {
@@ -74,11 +103,11 @@ $footer-height: 40px;
 }
 
 div[ng-view].ng-enter {
-    -webkit-animation: fadeInRight 1s;
-    animation: fadeInRight 1s;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
 }
 
 div[ng-view].ng-leave {
-    -webkit-animation: fadeOutLeft 0.5s;
-    animation: fadeOutLeft 0.5s;
+    -webkit-animation: fadeOut 0.3s;
+    animation: fadeOut 0.3s;
 }

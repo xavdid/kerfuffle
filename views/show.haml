@@ -1,9 +1,16 @@
 .mid
-  %h3.center
+
+  / shuffle button
+  %button.btn.btn-default.btn-lg.animated.fadeInDown{"ng-click" => "fetch()"}
+    %i.fa.fa-2x.fa-random.fa-fw.go{"ng-show" => "!loading"}
+    %i.fa.fa-2x.fa-cog.fa-spin.fa-fw.go{"ng-show" => "loading"}
+
+  /title
+  %h1.center
     {{ showName }}
 
-  %h3.center.light
-    How about Season
+  %h3.light.animated.fadeInRight#title-line
+    Season
     %strong
       {{ seasonNum }}
     Episode
@@ -11,4 +18,11 @@
       {{ episodeNum }}
     \-
     %strong
-      {{ episodeTitle }}?
+      {{ episodeTitle }}
+
+  / poster
+  %img.img-responsive.animated.screen.fadeInRight.pull-right{src: "{{ posterUrl }}"}
+
+  / text
+  %p.animated.fadeInLeft#episode-blurb
+    {{ overview }}

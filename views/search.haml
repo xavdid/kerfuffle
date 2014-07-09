@@ -4,8 +4,8 @@
 .mid
   .input-group.input-group-lg.search
     %span.input-group-addon
-      %i.fa.fa-search{"ng-show" => "!loading"}
-      %i.fa.fa-cog.fa-spin{"ng-show" => "loading"}
+      %i.fa.fa-search.fa-fw{"ng-show" => "!loading"}
+      %i.fa.fa-cog.fa-fw.fa-spin{"ng-show" => "loading"}
     %input.form-control{type: "text", placeholder: "TV Show", "ng-model" => "query", "ng-trim" => "false", autofocus: true}
 
   %h3.light.center.animated.fadeInRight#result{"ng-show" => "result"}
@@ -17,9 +17,9 @@
   %img.img-responsive.animated.fadeInLeft.poster.pull-left{src: "{{ posterUrl }}", "ng-show" => "showStuff"}
 
   / shuffle button
-  .button.animated.fadeInRight.pull-right{"ng-show" => "showStuff"}
+  %button.btn.btn-default.btn-lg.animated.fadeInRight.pull-right{"ng-show" => "showStuff"}
     %a{href: '/show/{{ showId }}'}
-      %i.fa.fa-5x.fa-random.fa-border.go
+      %i.fa.fa-4x.fa-random.go
 
   / text
   %p.center.animated.fadeInUp#blurb{"ng-show" => "showStuff"}
