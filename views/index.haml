@@ -30,20 +30,21 @@
     / favicon
     %link{:rel => 'shortcut icon', :type => 'image/png', :href => '/images/favicon.ico'}
 
-  %nav.navbar.navbar-inverse#big-bar{role: "navigation"}
-    .container-fluid
-      .navbar-header
-        %a{href: '/'}
-          %p.brand.navbar-brand
-            Kerfuffle!
+  .page
+    %nav.navbar.navbar-inverse#big-bar{role: "navigation"}
+      .container-fluid
+        .navbar-header
+          %a{href: '/'}
+            %p.brand.navbar-brand
+              Kerfuffle!
 
-  .mid
-    .container
-      %div.slide{"ng-view" => true}
-
+    .mid
+      .container
+        %div.slide{"ng-view" => true}
+    .push
   .bot
     .container
-      %p
+      #footer-text
         Made by
         %a{href: "http://davidbrownman.com", target: "_blank"}<
           David Brownman.
