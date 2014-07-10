@@ -87,13 +87,13 @@ app.controller('ShowController', function($scope, $http, $routeParams, showServi
         $scope.loading = true;    
         $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
             success(function(data){
-                $scope.loading = false;
+                $scope.posterUrl = data['images']['screen'];
                 $scope.seasonNum = data['season'];
                 $scope.episodeNum = data['number'];
                 $scope.episodeTitle = data['title'];
                 $scope.overview = data['overview'];
-                $scope.posterUrl = data['images']['screen'];
                 $scope.showStuff = true;
+                $scope.loading = false;
             }).
             error(function(){
                 $scope.loading = false;
@@ -107,6 +107,7 @@ app.controller('ShowController', function($scope, $http, $routeParams, showServi
 
     // main
     $scope.showStuff = false;
+    $scope.loading = true;
     console.log($routeParams.showId);
     $http.get('/pull_show/'+$routeParams.showId)
         .success(function(data) {
