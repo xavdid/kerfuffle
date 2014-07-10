@@ -48,8 +48,8 @@ end
 
 get '/pull_show/:tvdb_id' do 
   response = HTTParty.get("http://api.trakt.tv/show/summary.json/#{ENV['TRAKT_API_KEY']}/#{params[:tvdb_id]}/extended")
-  puts 'this is the show:'
-  pp response
+  # puts 'this is the show:'
+  # pp response
   return response.to_json
 end
 
