@@ -55,12 +55,14 @@ end
 
 post '/random' do
   # this is because sinatra doesn't take json input, apparently
-  show = JSON.parse(request.env["rack.input"].read)
+  data = JSON.parse(request.env["rack.input"].read)
+  episodes = []
 
-  episode = show['seasons'].reject{|hsh| hsh['season'] == 0}.sample['episodes'].sample.to_json
-  
-  # response = HTTParty.get("http://api.trakt.tv/show/episode/summary.json/#{ENV['TRAKT_API_KEY']}/#{show['show_id']}/#{episode['season']}/#{episode['number']}")['episode']
-  # response.to_json
+  data['seasons'].reject{|hsh| hsh['season'] == 0}.each do |season|
+    episodes << season['episodes']
+  end
+
+  episodes.flatten!.sample.to_json
 end
 
 get '/render_search' do 
