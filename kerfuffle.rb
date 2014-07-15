@@ -8,6 +8,7 @@ require 'pp'
 require 'time'
 
 require 'httparty'
+require 'open-uri'
 
 configure do 
 
@@ -36,7 +37,7 @@ get '/' do
 end
 
 get '/find_show/:query' do
-  response = HTTParty.get("http://api.trakt.tv/search/shows.json/#{ENV['TRAKT_API_KEY']}?query=#{params[:query]}")[0]
+  response = HTTParty.get("http://api.trakt.tv/search/shows.json/#{ENV['TRAKT_API_KEY']}?query=#{URI::encode(params[:query])}")[0]
 
   if response
     response[:status] = 200
