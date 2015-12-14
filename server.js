@@ -40,11 +40,17 @@ app.get('/lists', function(req, res, next) {
 
   // var WunderlistSDK = require('wunderlist');
   // var wunderlist = new WunderlistSDK({
-  //   accessToken: process.env.WUNDERLIST_ACCESS_TOKEN,
-  //   clientID: process.env.WUNDERLIST_CLIENT_ID
+  //   'accessToken': process.env.WUNDERLIST_ACCESS_TOKEN,
+  //   'clientID': process.env.WUNDERLIST_CLIENT_ID
   // });
 
-  // wunderlist.
+  // wunderlist.http.lists.all()
+  //   .done(function (lists) {
+  //     console.log(lists);
+  //   })
+  //   .fail(function () {
+  //     console.error('there was a problem');
+  //   });
 });
 
 app.use(function(err, req, res, next) {
