@@ -1,0 +1,28 @@
+{
+  "name": "kerfuffle",
+  "version": "1.0.0",
+  "description": "Randomly fetch something from your media list",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xavdidtheshadow/kerfuffle.git"
+  },
+  "author": "@xavdid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xavdidtheshadow/kerfuffle/issues"
+  },
+  "homepage": "https://github.com/xavdidtheshadow/kerfuffle#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "helmet": "^0.15.0",
+    "request": "^2.67.0",
+    "wunderlist": "^0.1.2"
+  },
+  "devDependencies": {
+    "dotenv": "^1.2.0"
+  }
+}
