@@ -19,10 +19,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/lists/:id', function(req, res, next) {
-  wunderlist.fetch_items_by_list_id(req.params.id).then(function(items){
-    var item = items[Math.floor(Math.random() * items.length)];
-    res.send(item); 
-  });
+  wunderlist.fetch_items_by_list_id(req.params.id)
+    .then(function(items){
+      // console.log(items);
+      var item = items[Math.floor(Math.random() * items.length)];
+      res.send(item); 
+    })
+    .catch(function(err){
+      next(err);
+    });
 });
 
 app.use(function(err, req, res, next) {
