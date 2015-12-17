@@ -11,11 +11,6 @@ var options = {
   }
 };
 
-// list ids
-// movies: 85090835
-// books: 107797412
-// tv: 144762938
-// vicky: 214661052
 module.exports = {
   fetch_tasks_by_list_id: function(lid) {
     return request.get(
@@ -24,7 +19,7 @@ module.exports = {
     );
   },
 
-  fetch_note_for_task: function(tid){
+  fetch_note_for_task: function(tid) {
     return request.get(
       `https://a.wunderlist.com/api/v1/notes?task_id=${tid}`, 
       options

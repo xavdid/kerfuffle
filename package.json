@@ -19,7 +19,8 @@
   "dependencies": {
     "express": "^4.13.3",
     "helmet": "^0.15.0",
-    "request-promise": "^1.0.2"
+    "request-promise": "^1.0.2",
+    "trakt-api": "^0.4.0"
   },
   "devDependencies": {
     "dotenv": "^1.2.0"
