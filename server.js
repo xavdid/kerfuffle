@@ -17,58 +17,38 @@ if (!app.get('production')) {
 // services
 var wunderlist = require('./services/wunderlist');
 var wunderlistids = require('./services/wunderlistids');
-var gbooks = require('./services/google_books');
-var trakt = require('./services/trakt');
+
+var services = {
+  gbooks: require('./services/google_books'),
+  trakt: require('./services/trakt')
+};
+
+var router = {
+  books: 'gbooks',
+  tv_shows: 'trakt',
+  movies: 'trakt'
+};
 
 // handlers
-
-
-
-app.get('/', function (req, res) {
-  res.send('Hello World!<br><br><a href="/lists">Goto Lists</a>!');
-});
-
-app.get('/books', function(req, res, next) {
-  wunderlist.fetch_tasks_by_list_id(wunderlistids.books)
+function watcher_handler(req, res, next) {
+  var media = req.path.substring(1);
+  wunderlist.fetch_tasks_by_list_id(wunderlistids[media])
     .then(function(tasks){
       var task = tasks[Math.floor(Math.random() * tasks.length)];
-      gbooks.search_books(task.title).then(function(book){
-        res.send(book);
-      });
-      
-    })
-    .catch(function(err){
-      next(err);
-    });
-});
-
-app.get('/movies', function(req, res, next) {
-  wunderlist.fetch_tasks_by_list_id(wunderlistids.movies)
-    .then(function(tasks){
-      var task = tasks[Math.floor(Math.random() * tasks.length)];
-      trakt.search_for_media(task.title).then(function(movies){
-        // let's just assume the first result is the best
+      services[router[media]].search(task.title).then(function(movies) {
         res.send(movies);
       });
     })
     .catch(function(err){
       next(err);
     });
+}
+
+app.get('/', function (req, res) {
+  res.send('Hello World!<br><br><a href="/lists">Goto Lists</a>!');
 });
 
-app.get('/tv_shows', function(req, res, next) {
-  wunderlist.fetch_tasks_by_list_id(wunderlistids.tv_shows)
-    .then(function(tasks){
-      var task = tasks[Math.floor(Math.random() * tasks.length)];
-      trakt.search_for_media(task.title).then(function(shows){
-        // let's just assume the first result is the best
-        res.send(shows);
-      });
-    })
-    .catch(function(err){
-      next(err);
-    });
-});
+app.get(['/tv_shows', '/movies', '/books'], watcher_handler);
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);

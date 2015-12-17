@@ -19,6 +19,7 @@ module.exports = {
     );
   },
 
+  // currently unused, title is enough
   fetch_note_for_task: function(tid) {
     return request.get(
       `https://a.wunderlist.com/api/v1/notes?task_id=${tid}`, 

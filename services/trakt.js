@@ -23,7 +23,7 @@ function querystring(s) {
 }
 
 module.exports = {
-  search_for_media: function(query) {
+  search: function(query) {
     return request(url(query), options);
   }
 };

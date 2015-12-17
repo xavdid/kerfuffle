@@ -17,7 +17,7 @@ function querystring(s) {
 }
 
 module.exports = {
-  search_books: function(title) {
+  search: function(title) {
     return request(url(title), options);
   }
 };
