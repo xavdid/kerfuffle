@@ -20,6 +20,10 @@ var wunderlistids = require('./services/wunderlistids');
 var gbooks = require('./services/google_books');
 var trakt = require('./services/trakt');
 
+// handlers
+
+
+
 app.get('/', function (req, res) {
   res.send('Hello World!<br><br><a href="/lists">Goto Lists</a>!');
 });
@@ -44,7 +48,21 @@ app.get('/movies', function(req, res, next) {
       var task = tasks[Math.floor(Math.random() * tasks.length)];
       trakt.search_for_media(task.title).then(function(movies){
         // let's just assume the first result is the best
-        res.send(movies[0]);
+        res.send(movies);
+      });
+    })
+    .catch(function(err){
+      next(err);
+    });
+});
+
+app.get('/tv_shows', function(req, res, next) {
+  wunderlist.fetch_tasks_by_list_id(wunderlistids.tv_shows)
+    .then(function(tasks){
+      var task = tasks[Math.floor(Math.random() * tasks.length)];
+      trakt.search_for_media(task.title).then(function(shows){
+        // let's just assume the first result is the best
+        res.send(shows);
       });
     })
     .catch(function(err){
