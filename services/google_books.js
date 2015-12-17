@@ -8,12 +8,12 @@ var options = {
   }
 };
 
-function url(terms) {
-  return `https://www.googleapis.com/books/v1/volumes?q=${querystring(terms)}`;
-}
-
 function querystring(s) {
   return s.trim().split(" ").join("+");
+}
+
+function url(terms) {
+  return `https://www.googleapis.com/books/v1/volumes?q=${querystring(terms)}`;
 }
 
 module.exports = {

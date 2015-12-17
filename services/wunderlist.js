@@ -1,6 +1,7 @@
 // access the wunderlist API
 
 var request = require('request-promise');
+
 var options = {
   transform: function(body) {
     return JSON.parse(body);
@@ -11,19 +12,12 @@ var options = {
   }
 };
 
+function url(lid) {
+  return `https://a.wunderlist.com/api/v1/tasks?list_id=${lid}`;
+}
+
 module.exports = {
   fetch_tasks_by_list_id: function(lid) {
-    return request.get(
-      `https://a.wunderlist.com/api/v1/tasks?list_id=${lid}`, 
-      options
-    );
-  },
-
-  // currently unused, title is enough
-  fetch_note_for_task: function(tid) {
-    return request.get(
-      `https://a.wunderlist.com/api/v1/notes?task_id=${tid}`, 
-      options
-    );
+    return request.get(url(lid), options);
   }
 };
