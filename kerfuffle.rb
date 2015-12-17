@@ -37,9 +37,14 @@ get '/' do
 end
 
 get '/find_show/:query' do
-  response = HTTParty.get("https://api-v2launch.trakt.tv/search/shows.json/#{ENV['TRAKT_API_KEY']}?query=#{URI::encode(params[:query])}")
+  headers = {
+    'Content-Type' => 'application/json',
+    'trakt-api-version' => '2',
+    'trakt-api-key' => ENV['TRAKT_API_KEY']
+  }
+  response = HTTParty.get("https://api-v2launch.trakt.tv/search?type=show&query=#{URI::encode(params[:query])}", headers: headers)
+  pp response
   if response
-    response[:status] = 200
     return response.to_json
   else
     {status: 404, message: "not found"}.to_json
@@ -47,6 +52,7 @@ get '/find_show/:query' do
 end
 
 get '/pull_show/:tvdb_id' do 
+  # this is broken
   response = HTTParty.get("https://api-v2launch.trakt.tv/show/summary.json/#{ENV['TRAKT_API_KEY']}/#{params[:tvdb_id]}/extended")
   # puts 'this is the show:'
   # pp response

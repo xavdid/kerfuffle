@@ -1,4 +1,4 @@
-var app = angular.module('Kerfuffle', ['ngRoute', 'ngAnimate'])
+var app = angular.module('Kerfuffle', ['ngRoute', 'ngAnimate']);
 
 app.config(function($routeProvider, $locationProvider, $animateProvider){
     $routeProvider.
@@ -21,7 +21,7 @@ app.config(function($routeProvider, $locationProvider, $animateProvider){
 });
 
 app.service("showService",function(){
-    var show = '';
+    var show = null;
 
     return {
         getShow: function(){
@@ -55,12 +55,13 @@ app.controller('SearchController', function($scope, $http, $timeout, showService
                 $http.get('/find_show/'+tempText)
                     .success(function(data) {
                         $scope.loading = false;
-                        if (data['status'] == 200){
+                        if (data.length > 0){
+                            var show = data[0].show;
                             $scope.showStuff = true;
-                            $scope.result = data['title'];
-                            $scope.showId = data['tvdb_id'];
-                            $scope.posterUrl = data['images']['poster'];
-                            $scope.overview = data['overview'];
+                            $scope.result = show.title;
+                            $scope.showId = show.tvdb_id;
+                            $scope.posterUrl = show.images.poster.medium;
+                            $scope.overview = show.overview;
                             showService.setShow(data);
                         }
                         else {
@@ -85,13 +86,13 @@ app.controller('ShowController', function($scope, $http, $routeParams, showServi
     $scope.fetch = function() {
         var show = showService.getShow();
         $scope.loading = true;    
-        $http.post('/random',{'seasons': show['seasons'], 'show_id':show['tvdb_id']}).
+        $http.post('/random', {seasons: show.seasons, show_id:show.tvdb_id}).
             success(function(data){
-                $scope.posterUrl = data['images']['screen'];
-                $scope.seasonNum = data['season'];
-                $scope.episodeNum = data['number'];
-                $scope.episodeTitle = data['title'];
-                $scope.overview = data['overview'];
+                $scope.posterUrl = data.images.screen;
+                $scope.seasonNum = data.season;
+                $scope.episodeNum = data.number;
+                $scope.episodeTitle = data.title;
+                $scope.overview = data.overview;
                 $scope.showStuff = true;
                 $scope.loading = false;
             }).
@@ -101,7 +102,7 @@ app.controller('ShowController', function($scope, $http, $routeParams, showServi
             });
     };
     $scope.init = function() {
-        $scope.showName = showService.getShow()['title'];
+        $scope.showName = showService.getShow().title;
         $scope.fetch();
     };
 
