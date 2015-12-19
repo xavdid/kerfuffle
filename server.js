@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
 
 app.get(media_types.map(r => {return `/${r}`;}), function(req, res, next) {
   var media_type = req.path.substring(1);
-  res.render('index', {media_type: media_type});
+  res.render(media_type, {media_type: media_type});
 });
 
 // get /api/:media

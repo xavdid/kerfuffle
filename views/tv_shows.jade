@@ -1,0 +1,21 @@
+extends ./layout.jade
+
+block content
+  h1 
+    | So you're looking for a 
+    span.chill
+      | {{media_type.slice(0, -1).replace('_', ' ')}}
+    | .
+  .response(ng-cloak)
+    h3
+      | How about 
+      strong.jump {{res.show.title}}
+      | ?
+    p
+      | {{res.show.overview}} [
+      span.muted
+        | {{res.show.status}}
+      | ] [
+      span.muted
+        | {{res.show.year}}
+      | ] 
