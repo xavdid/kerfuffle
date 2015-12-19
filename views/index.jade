@@ -1,0 +1,34 @@
+html
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+
+    title How about some media?
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
+
+    //- palatte http://paletton.com/#uid=40L120kAH++b3ZIiKZX++wh++rK
+    style.
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
+      .jump {color: #0F89FF;}
+      
+  body(ng-app="MediaApp")
+    .container(ng-controller="MainController")
+      h1 
+        | So you're looking for a 
+        span.jump
+          = media_type.slice(0, -1).replace('_', ' ')
+        | .
+      p(ng-cloak)
+        | How about 
+        strong {{book.title}} 
+        | by {{book.author}}?
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
+
+    script.
+      angular.module('MediaApp', [])
+        .controller('MainController', ['$scope', '$http', function($scope, $http) {
+          $scope.message = 'this is neat';
+          $scope.book = {title: 'The Name of the Wind', author: 'Pat Rothfuss'}
+        }]);

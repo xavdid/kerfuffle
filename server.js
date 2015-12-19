@@ -8,11 +8,14 @@ const app = express();
 // settings
 app.set('production', process.env.NODE_ENV === 'production');
 app.set('port', (process.env.PORT || 3000));
+app.set('view engine', 'jade');
 
 // local only
 if (!app.get('production')) {
   require('dotenv').load();
 }
+
+var media_types = ['tv_shows', 'movies', 'books'];
 
 // services
 var wunderlist = require('./services/wunderlist');
@@ -31,12 +34,12 @@ var router = {
 
 // handlers
 function watcher_handler(req, res, next) {
-  var media = req.path.substring(1);
-  wunderlist.fetch_tasks_by_list_id(wunderlistids[media])
+  var media_type = req.path.substring(5); // skips /api/
+  wunderlist.fetch_tasks_by_list_id(wunderlistids[media_type])
     .then(function(tasks){
       var task = tasks[Math.floor(Math.random() * tasks.length)];
-      services[router[media]].search(task.title).then(function(movies) {
-        res.send(movies);
+      services[router[media_type]].search(task.title).then(function(media) {
+        res.send(media);
       });
     })
     .catch(function(err){
@@ -48,11 +51,21 @@ app.get('/', function (req, res) {
   res.send('Hello World!<br><br><a href="/lists">Goto Lists</a>!');
 });
 
-app.get(['/tv_shows', '/movies', '/books'], watcher_handler);
+app.get(media_types.map(r => {return `/${r}`;}), function(req, res, next) {
+  var media_type = req.path.substring(1);
+  res.render('index', {media_type: media_type});
+});
+
+// get /api/:media
+app.get(media_types.map(r => {return `/api/${r}`;}), watcher_handler);
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send(err);
+});
+
+app.use(function(req, res, next) {
+  res.status(404).send(`That's not a valid media type! Try [${media_types.join(' | ')}] instead`);
 });
 
 var server = app.listen(app.get('port'), function () {
