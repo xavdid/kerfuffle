@@ -8,4 +8,7 @@
 .green { color: #85FF00; }
 .darkgreen { color: #68C800; }
 .spaced { margin-left: 20px; }
-.cover { border: 1px solid black; }
+.cover { 
+    border: 1px solid black; 
+    margin-bottom: 10px;
+}
