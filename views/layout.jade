@@ -3,19 +3,26 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
 
     title How about some media?
+
+    //- css
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
 
     //- palatte http://paletton.com/#uid=40L120kAH++b3ZIiKZX++wh++rK
     style.
       [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
         display: none !important;
       }
-      .jump {color: #FF9700;}
-      .chill {color: #0F89FF;}
-      .muted {color: #930EFF;}
+      .orange {color: #FF9700;}
+      .blue {color: #0F89FF;}
+      .purple {color: #930EFF;}
+      .green {color: #85FF00;}
+      .darkgreen {color: #68C800;}
+      .spaced {margin-left: 20px;}
+      .cover {border: 1px solid black;}
       
   body(ng-app="MediaApp")
-    .container(ng-controller="MainController")
+    .container(ng-controller="MainController" ng-cloak)
       block content
         p missing template!
 
@@ -24,9 +31,18 @@ html
     script.
       angular.module('MediaApp', [])
         .controller('MainController', ['$scope', '$http', function($scope, $http) {
+          $scope.refresh = function() {
+            $scope.loading = true;
+            $http.get(`/api/${$scope.media_type}`).then(function(data) {
+              $scope.loading = false;
+              $scope.res = data.data;
+            })
+          }
+
+          $scope.gbooksImage = function(id) {
+            return `https://books.google.com/books/content?id=${id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`;
+          }
+
           $scope.media_type = location.pathname.substring(1);
-          console.log('url will be',`/api/${$scope.media_type}`);
-          $http.get(`/api/${$scope.media_type}`).then(function(data) {
-            $scope.res = data.data;
-          })
+          $scope.refresh();
         }]);
