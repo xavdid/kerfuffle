@@ -15,7 +15,7 @@ if (!app.get('production')) {
   require('dotenv').load();
 }
 
-var media_types = ['tv_shows', 'movies', 'books'];
+var media_types = ['shows', 'movies', 'books'];
 
 // services
 var wunderlist = require('./services/wunderlist');
@@ -28,7 +28,7 @@ var services = {
 
 var router = {
   books: 'gbooks',
-  tv_shows: 'trakt',
+  shows: 'trakt',
   movies: 'trakt'
 };
 

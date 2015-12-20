@@ -23,6 +23,15 @@ html
       
   body(ng-app="MediaApp")
     .container(ng-controller="MainController" ng-cloak)
+      h1 
+        | So you're looking for a 
+        span.blue
+          | {{media_type.slice(0, -1)}}
+        | .
+
+        button.btn.btn-default.btn-lg.spaced(ng-click="refresh()")
+          i.fa.fa-refresh.fa-2x(ng-class="{true: 'fa-spin'}[loading]")
+
       block content
         p missing template!
 
@@ -34,8 +43,18 @@ html
           $scope.refresh = function() {
             $scope.loading = true;
             $http.get(`/api/${$scope.media_type}`).then(function(data) {
-              $scope.loading = false;
-              $scope.res = data.data;
+              if (
+                // no repeats or bums!
+                $scope.res && (
+                  !data.data ||
+                  ($scope.media_type === 'books' && data.data.id === $scope.res.id) ||
+                  ($scope.media_type != 'books' && data.data[data.data.type].ids.trakt === $scope.res[data.data.type].ids.trakt)
+                )
+              ) {console.log('freshin'); $scope.refresh();}
+              else {
+                $scope.loading = false;
+                $scope.res = data.data;
+              }
             })
           }
 

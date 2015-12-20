@@ -1,12 +1,6 @@
 extends ./layout.jade
 
 block content
-  h1 
-    | So you're looking for a 
-    span.blue
-      | {{media_type.slice(0, -1).replace('_', ' ')}}
-    | .
-    i.fa.fa-refresh.spaced(ng-class="{true: 'fa-spin'}[loading]" ng-click="refresh()")
   .response(ng-show="res")
     h3
       | How about 

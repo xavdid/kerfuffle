@@ -13,7 +13,7 @@ var options = {
 };
 
 function url(terms) {
-  return `https://api-v2launch.trakt.tv/search?type=movie,show&query=${terms}`;
+  return `https://api-v2launch.trakt.tv/search?type=movie,show&query=${encodeURIComponent(terms)}`;
 }
 
 module.exports = {

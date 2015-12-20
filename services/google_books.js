@@ -13,7 +13,7 @@ function querystring(s) {
 }
 
 function url(terms) {
-  return `https://www.googleapis.com/books/v1/volumes?q=${querystring(terms)}`;
+  return `https://www.googleapis.com/books/v1/volumes?q=${querystring(encodeURIComponent(terms))}`;
 }
 
 module.exports = {
