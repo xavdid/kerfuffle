@@ -1,0 +1,11 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.orange { color: #FF9700; }
+.blue { color: #0F89FF; }
+.purple { color: #930EFF; }
+.green { color: #85FF00; }
+.darkgreen { color: #68C800; }
+.spaced { margin-left: 20px; }
+.cover { border: 1px solid black; }

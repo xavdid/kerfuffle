@@ -9,17 +9,7 @@ html
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
 
     //- palatte http://paletton.com/#uid=40L120kAH++b3ZIiKZX++wh++rK
-    style.
-      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-        display: none !important;
-      }
-      .orange {color: #FF9700;}
-      .blue {color: #0F89FF;}
-      .purple {color: #930EFF;}
-      .green {color: #85FF00;}
-      .darkgreen {color: #68C800;}
-      .spaced {margin-left: 20px;}
-      .cover {border: 1px solid black;}
+    link(rel="stylesheet" href="/static/the.css")
       
   body(ng-app="MediaApp")
     .container(ng-controller="MainController" ng-cloak)
@@ -35,33 +25,4 @@ html
       block content
         p missing template!
 
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
-
-    script.
-      angular.module('MediaApp', [])
-        .controller('MainController', ['$scope', '$http', function($scope, $http) {
-          $scope.refresh = function() {
-            $scope.loading = true;
-            $http.get(`/api/${$scope.media_type}`).then(function(data) {
-              if (
-                // no repeats or bums!
-                $scope.res && (
-                  !data.data ||
-                  ($scope.media_type === 'books' && data.data.id === $scope.res.id) ||
-                  ($scope.media_type != 'books' && data.data[data.data.type].ids.trakt === $scope.res[data.data.type].ids.trakt)
-                )
-              ) {console.log('freshin'); $scope.refresh();}
-              else {
-                $scope.loading = false;
-                $scope.res = data.data;
-              }
-            })
-          }
-
-          $scope.gbooksImage = function(id) {
-            return `https://books.google.com/books/content?id=${id}&printsec=frontcover&img=1&zoom=2&source=gbs_api`;
-          }
-
-          $scope.media_type = location.pathname.substring(1);
-          $scope.refresh();
-        }]);
+    script(src="/static/app.js")

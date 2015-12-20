@@ -2,18 +2,24 @@
 
 var express = require('express');
 var helmet = require('helmet');
+var browserify = require('browserify-middleware');
+var favicon = require('serve-favicon');
 
 const app = express();
 
 // settings
 app.set('production', process.env.NODE_ENV === 'production');
-app.set('port', (process.env.PORT || 3000));
-app.set('view engine', 'jade');
-
 // local only
 if (!app.get('production')) {
   require('dotenv').load();
 }
+
+app.set('port', (process.env.PORT || 3000));
+app.set('view engine', 'jade');
+app.use('/static', express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
+// render the client
+app.get('/static/app.js', browserify(__dirname + '/public/client.js'));
 
 var media_types = ['shows', 'movies', 'books'];
 
