@@ -1,16 +1,24 @@
 // wunderlist ids and the services to which they map
 
 module.exports = {
-  wunderlistids: {
-      shows: 144762938,
-      books: 107797412,
-      movies: 85090835
-      // TODO: make alias for pages
-      // vicky: 214661052
-  }, 
-  router: {
-    shows: 'trakt',
-    books: 'gbooks',
-    movies: 'trakt'
-  }
+  shows: {
+    id: 144762938,
+    service: 'trakt',
+    view: 'shows'
+  },
+  books: {
+    id: 107797412,
+    service: 'gbooks',
+    view: 'books'
+  },
+  movies: {
+    id: 85090835,
+    service: 'trakt',
+    view: 'movies'
+  } //,
+  // vicky: {
+  //   id: 214661052,
+  //   service: 'trakt',
+  //   view: 'movies'
+  // }
 };

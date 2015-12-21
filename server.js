@@ -15,8 +15,7 @@ if (!app.get('production')) {
 }
 
 var config = require('./config');
-var router = config.router;
-var wunderlistids = config.wunderlistids;
+var media_types = Object.keys(config);
 
 app.set('port', (process.env.PORT || 3000));
 app.set('view engine', 'jade');
@@ -24,8 +23,6 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 // render the client
 app.get('/static/app.js', browserify(__dirname + '/public/client.js'));
-
-var media_types = ['shows', 'movies', 'books'];
 
 var services = {
   wunderlist: require('./services/wunderlist'),
@@ -35,11 +32,11 @@ var services = {
 
 // handlers
 function watcher_handler(req, res, next) {
-  var media_type = req.path.substring(5); // skips /api/
-  services.wunderlist.fetch_tasks_by_list_id(wunderlistids[media_type])
+  var media_type = req.path.substring(5); // skips "/api/"
+  services.wunderlist.fetch_tasks_by_list_id(config[media_type].id)
     .then(function(tasks){
       var task = tasks[Math.floor(Math.random() * tasks.length)];
-      services[router[media_type]].search(task.title).then(function(media) {
+      services[config[media_type].service].search(task.title).then(function(media) {
         res.send(media);
       });
     })
