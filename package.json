@@ -22,7 +22,8 @@
     "express": "^4.13.3",
     "helmet": "^0.15.0",
     "jade": "^1.11.0",
-    "request-promise": "^1.0.2"
+    "request-promise": "^1.0.2",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "dotenv": "^1.2.0"
