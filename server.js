@@ -46,12 +46,12 @@ function watcher_handler(req, res, next) {
 }
 
 app.get('/', function (req, res) {
-  res.render('index');
+  res.render('index', {media_type: 'index'});
 });
 
 app.get(media_types.map(r => {return `/${r}`;}), function(req, res, next) {
   var media_type = req.path.substring(1);
-  res.render(media_type);
+  res.render(media_type, {media_type: media_type});
 });
 
 // get /api/:media
