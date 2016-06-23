@@ -3,8 +3,8 @@ extends ./layout.jade
 block content
   .response(ng-show="res")
     h3
-      | How about 
-      strong.orange {{res.movie.title}}
+      | How about
+      strong.orange  {{res.movie.title}}
       | ?
     .row
       .col-sm-8
@@ -12,6 +12,6 @@ block content
           | {{res.movie.overview}} [
           span.darkgreen
             | {{res.movie.year}}
-          | ] 
+          | ]
       .col-sm-4
         img.img-responsive.center-block.cover(src="{{res.movie.images.poster.thumb}}")

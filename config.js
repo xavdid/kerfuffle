@@ -15,10 +15,5 @@ module.exports = {
     id: 85090835,
     service: 'trakt',
     view: 'movies'
-  } //,
-  // vicky: {
-  //   id: 214661052,
-  //   service: 'trakt',
-  //   view: 'movies'
-  // }
-};
+  }
+}

@@ -10,7 +10,7 @@ html
 
     //- palatte http://paletton.com/#uid=40L120kAH++b3ZIiKZX++wh++rK
     link(rel="stylesheet" href="/static/the.css")
-      
+
   body
     nav.navbar.navbar-default
       .navbar-header
@@ -39,10 +39,10 @@ html
     .container
       block main
         .main(ng-app="MediaApp" ng-controller="MainController" ng-cloak)
-          h1 
-            | So you're looking for a 
+          h1
+            | So you're looking for a
             span(ng-class="{books: 'purple', movies: 'blue',shows: 'darkgreen'}[media_type]")
-              | {{media_type.slice(0, -1)}}
+              |  {{media_type.slice(0, -1)}}
             | .
 
             button.btn.btn-default.btn-lg.spaced(ng-click="refresh()")
@@ -54,12 +54,12 @@ html
     footer.footer
       .container
         p.text-muted
-          | Site by 
+          | Site by
           a(href="http://davidbrownman.com" target="blank")
-            | David Brownman
-          | . Code available on 
+            |  David Brownman
+          | . Code available on
           a(href="https://github.com/xavdidtheshadow/kerfuffle" target="blank")
-            | Github
+            |  Github
           | .
 
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")

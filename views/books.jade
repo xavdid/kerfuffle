@@ -3,21 +3,25 @@ extends ./layout.jade
 block content
   .response(ng-show="res")
     h3
-      | How about 
-      strong.orange {{res.volumeInfo.title}} 
-      | by 
+      | How about
+      strong.orange  {{res.volumeInfo.title}}
+      |  by
       span.darkgreen
-        | {{res.volumeInfo.authors[0]}}
+        |  {{res.volumeInfo.authors[0]}}
       | ?
     .row
       .col-sm-8
         p.text-justify
           | {{res.volumeInfo.description}} [
-          span.blue
+          span.purple
             | {{res.volumeInfo.categories[0]}}
           | ] [
           span.darkgreen
             | {{res.volumeInfo.publishedDate.substring(0, 4)}}
-          | ] 
+          | ] [
+          span.orange
+            a(ng-href='https://www.wunderlist.com/#/tasks/{{task.id}}').
+              Task
+          | ]
       .col-sm-4
         img.img-responsive.center-block.cover(src="{{gbooksImage(res.id)}}")
