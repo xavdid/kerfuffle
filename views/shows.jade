@@ -4,17 +4,18 @@ block content
   .response(ng-show="res")
     h3
       | How about
-      strong.orange  {{res.show.title}}
+      strong.orange  {{res.name}}
       | ?
     .row
       .col-sm-8
         p.text-justify
-          | {{res.show.overview}} [
-          span.purple
-            | {{res.show.status}}
-          | ] [
+          | {{res.overview}} [
+          //- this exists on the details call, but that's an extra
+          //- span.purple
+          //-   | {{res.in_production}}
+          //- | ] [
           span.blue
-            | {{res.show.year}}
+            | {{res.first_air_date.slice(0, 4)}}
           | ]
       .col-sm-4
-        img.img-responsive.center-block.cover(src="{{res.show.images.poster.thumb}}")
+        img.img-responsive.center-block.cover(src="{{ 'https://image.tmdb.org/t/p/w342' + res.poster_path }}")

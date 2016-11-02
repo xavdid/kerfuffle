@@ -3,7 +3,7 @@
 module.exports = {
   shows: {
     id: 144762938,
-    service: 'trakt',
+    service: 'tmdb',
     view: 'shows'
   },
   books: {
@@ -13,7 +13,7 @@ module.exports = {
   },
   movies: {
     id: 85090835,
-    service: 'trakt',
+    service: 'tmdb',
     view: 'movies'
   }
 }

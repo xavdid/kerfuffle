@@ -30,20 +30,22 @@ app.get('/static/app.js', browserify(path.join(__dirname, '/public/client.js')))
 const services = {
   wunderlist: require('./services/wunderlist'),
   gbooks: require('./services/google_books'),
-  trakt: require('./services/trakt')
+  tmdb: require('./services/tmdb')
 }
 
 // handlers
 function watcherHandler (req, res, next) {
   const mediaType = req.path.substring(5) // skips "/api/"
+  let task
   services.wunderlist.fetch_tasks_by_list_id(config[mediaType].id)
     .then((tasks) => {
-      const task = tasks[Math.floor(Math.random() * tasks.length)]
-      services[config[mediaType].service].search(task.title).then((media) => {
-        res.json({
-          media: media,
-          task: task
-        })
+      task = tasks[Math.floor(Math.random() * tasks.length)]
+      return services[config[mediaType].service].search(task.title)
+    })
+    .then((media) => {
+      res.json({
+        media: media,
+        task: task
       })
     })
     .catch((err) => {

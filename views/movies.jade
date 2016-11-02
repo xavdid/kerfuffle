@@ -4,14 +4,14 @@ block content
   .response(ng-show="res")
     h3
       | How about
-      strong.orange  {{res.movie.title}}
+      strong.orange  {{ res.title }}
       | ?
     .row
       .col-sm-8
         p.text-justify
-          | {{res.movie.overview}} [
+          | {{ res.overview }} [
           span.darkgreen
-            | {{res.movie.year}}
+            | {{ res.release_date.slice(0,4) }}
           | ]
       .col-sm-4
-        img.img-responsive.center-block.cover(src="{{res.movie.images.poster.thumb}}")
+        img.img-responsive.center-block.cover(src="{{ 'https://image.tmdb.org/t/p/w342' + res.poster_path }}")
