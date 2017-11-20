@@ -5,9 +5,7 @@
   "main": "lib/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "clean": "rm -rf lib",
-    "prebuild": "npm run clean",
+    "postinstall": "tsc",
     "start": "node lib/server.js"
   },
   "repository": {
