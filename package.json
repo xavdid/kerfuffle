@@ -2,9 +2,13 @@
   "name": "kerfuffle",
   "version": "2.0.0",
   "description": "Randomly fetch something from your media list",
-  "main": "server.js",
+  "main": "lib/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "clean": "rm -rf lib",
+    "prebuild": "npm run clean",
+    "start": "node lib/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,17 +21,28 @@
   },
   "homepage": "https://github.com/xavdidtheshadow/kerfuffle#readme",
   "dependencies": {
+    "@types/express": "4.0.39",
+    "@types/got": "7.1.5",
+    "@types/helmet": "0.0.37",
+    "@types/request-promise": "4.1.39",
+    "@types/serve-favicon": "2.2.30",
     "angular": "^1.5.7",
     "browserify-middleware": "^7.0.0",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "got": "^8.0.0",
     "helmet": "^3.0.0",
     "jade": "^1.11.0",
     "request": "^2.76.0",
-    "request-promise": "^4.1.1",
-    "serve-favicon": "^2.3.0"
+    "request-promise": "^4.2.2",
+    "serve-favicon": "^2.3.0",
+    "typescript": "2.6.1"
   },
   "devDependencies": {
     "dotenv": "^2.0.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   }
 }

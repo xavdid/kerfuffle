@@ -1,8 +1,8 @@
 // perform searches against the trakt api
 'use strict'
-const request = require('request-promise')
+import * as request from 'request-promise'
 
-function opts (terms) {
+function opts(terms: string) {
   return {
     method: 'GET',
     uri: 'https://api.themoviedb.org/3/search/multi',
@@ -11,7 +11,7 @@ function opts (terms) {
       query: terms
     },
     json: true,
-    transform: (res) => {
+    transform: (res: any) => {
       return res.results[0]
     },
     transform2xxOnly: true
@@ -19,7 +19,7 @@ function opts (terms) {
 }
 
 module.exports = {
-  search: function (query) {
+  search: function(query: string) {
     return request(opts(query))
   }
 }
