@@ -1,4 +1,4 @@
-export interface Book {
+export interface ABook {
   id: string
   fields: {
     Author: string[]
@@ -7,6 +7,17 @@ export interface Book {
     'Year Published': number
     'Google Books ID': string
   }
+}
+
+export interface GBook {
+  title: string
+  authors: string[]
+  publisher: string
+  publishedDate: string // ISO
+  description: string
+  categories: string[]
+  averageRating: number
+  ratingsCount: number
 }
 
 export enum BookFields {
