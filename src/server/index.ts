@@ -1,30 +1,35 @@
-// loads the webserver
-'use strict'
-
 import * as express from 'express'
 import * as helmet from 'helmet'
 const browserify = require('browserify-middleware')
 import * as favicon from 'serve-favicon'
 import * as path from 'path'
 
+const port = process.env.PORT || 1337
+
 const app = express()
 app.use(helmet())
 
 // settings
-app.set('production', process.env.NODE_ENV === 'production')
-if (!app.get('production')) {
-  require('dotenv').load()
-}
+// loaded by foreman
+// app.set('production', process.env.NODE_ENV === 'production')
+// if (!app.get('production')) {
+//   require('dotenv').load()
+// }
+console.log('keys', process.env.AIRTABLE_API_KEY, process.env.TMDB_API_KEY)
 
-const config = require('./config')
+import config from './config'
+import { fetchUnreadBooks } from './services/airtable'
+
 const mediaTypes = Object.keys(config)
 
-app.set('port', process.env.PORT || 3000)
 app.set('view engine', 'jade')
-app.use('/static', express.static(path.join(__dirname, '../public')))
-app.use(favicon(path.join(__dirname, '../public/favicon.ico')))
+app.use('/static', express.static(path.join(__dirname, '../../public')))
+app.use(favicon(path.join(__dirname, '../../public/favicon.ico')))
 // render the client
-app.get('/static/app.js', browserify(path.join(__dirname, './client.js')))
+app.get(
+  '/static/app.js',
+  browserify(path.join(__dirname, '../client/bundle.js'))
+)
 
 const services: { [x: string]: any } = {
   wunderlist: require('./services/wunderlist'),
@@ -56,9 +61,7 @@ function watcherHandler(
 }
 
 app.get('/', (req, res) => {
-  res.render('index', {
-    media_type: 'index'
-  })
+  res.sendFile(path.join(__dirname, '../../public/layout.html'))
 })
 
 app.get(
@@ -72,6 +75,10 @@ app.get(
     })
   }
 )
+
+app.get('/api/abooks', async (req, res) => {
+  res.json(await fetchUnreadBooks())
+})
 
 // get /api/:media
 app.get(
@@ -101,7 +108,7 @@ app.use((req, res, next) => {
     )
 })
 
-const server = app.listen(app.get('port'), () => {
-  console.log(`Example app listening on port ${server.address().port}`)
+const server = app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
   console.log(`Production mode ${app.get('production') ? '' : 'not'} enabled.`)
 })

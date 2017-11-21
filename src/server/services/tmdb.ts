@@ -1,5 +1,4 @@
 // perform searches against the trakt api
-'use strict'
 import * as request from 'request-promise'
 
 function opts(terms: string) {
