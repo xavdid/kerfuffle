@@ -20,7 +20,7 @@ export interface GBook {
   ratingsCount: number
 }
 
-export enum BookFields {
+export enum ABookFields {
   title = 'Book Name',
   year = 'Year Published',
   gbid = 'Google Books ID'

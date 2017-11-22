@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Book } from '../components/Book'
-import { BookFields, ABook, GBook } from '../../server/services/interfaces'
+import { ABookFields, ABook, GBook } from '../../server/services/interfaces'
 
 export class BookBox extends React.Component<
   {},
