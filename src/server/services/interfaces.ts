@@ -10,6 +10,13 @@ export interface ABook {
 }
 
 export interface GBook {
+  // lots more included, but we skip a lot
+  // https://www.googleapis.com/books/v1/volumes/a8KtDgAAQBAJ
+  id: string
+  volumeInfo: GVolumeInfo
+}
+
+export interface GVolumeInfo {
   title: string
   authors: string[]
   publisher: string
