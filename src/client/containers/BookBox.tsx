@@ -1,23 +1,10 @@
 import * as React from 'react'
-import { Book } from '../components/Book'
+import Book from '../components/Book'
 import { ABookFields, ABook, GBook } from '../../server/services/interfaces'
 
 const gBooksAPIURL = (gbid: string) => {
   return `https://www.googleapis.com/books/v1/volumes/${gbid}`
 }
-
-// const gBooksCoverImageURL = (id: string) => {
-//   return `https://books.google.com/books/content/images/frontcover/${id}?fife=w300-rw`
-// }
-
-const fetchBookInfo = async (gbid: string) => {
-  const url = gBooksAPIURL(gbid)
-  console.log('fetching', url)
-  const book: GBook = await (await fetch(url)).json()
-  return book
-}
-
-const getBookInfo = async (id: string) => {}
 
 export class BookBox extends React.Component<
   {},
@@ -30,25 +17,40 @@ export class BookBox extends React.Component<
   }
   async componentDidMount() {
     console.log('mounting!')
-    const books = await (await fetch('/api/abooks')).json()
-    console.log(books[0])
-    this.setState({ books: books })
+    const books: ABook[] = await (await fetch('/api/abooks')).json()
+
+    this.setState({ books: books, bookDetails: {} })
+    this.storeBookInfo(books[this.state.index].fields[ABookFields.gbid])
+  }
+
+  shouldComponentUpdate(np: any, ns: any) {
+    // console.log('PROPS', this.props, 'becomes', np)
+    console.log('STATE', this.state, 'becomes', ns)
+    return Boolean(
+      ns.books.length &&
+        ns.bookDetails[ns.books[ns.index].fields[ABookFields.gbid]]
+    )
   }
 
   async nextBook() {
     const nextIndex = (this.state.index + 1) % this.state.books.length
-    // check if we've fetched data for that
-    let resState: any = { index: nextIndex }
     const nextId = this.state.books[nextIndex].fields[ABookFields.gbid]
-    console.log('next id is', nextId)
+    this.storeBookInfo(nextId)
+    this.setState({ index: nextIndex })
+  }
 
-    if (!this.state.bookDetails[nextId]) {
-      resState.bookDetails = {
-        [nextId]: await fetchBookInfo(nextId),
-        ...this.state.bookDetails
-      }
+  async storeBookInfo(gbid: string) {
+    const url = gBooksAPIURL(gbid)
+    const book: GBook = await (await fetch(url)).json()
+
+    if (!this.state.bookDetails[book.id]) {
+      this.setState({
+        bookDetails: {
+          [book.id]: book,
+          ...this.state.bookDetails
+        }
+      })
     }
-    this.setState(resState)
   }
 
   render() {
