@@ -17,6 +17,28 @@ export const NavBar = () => {
         </button>
         <a className="navbar-brand">Kerfuffle</a>
       </div>
+      <div className="navbar-collapse collapse" id="navbar">
+        <ul className="nav navbar-nav">
+          <li>
+            <a href="/books">
+              <i className="fa fa-book purple" />
+              Books
+            </a>
+          </li>
+          <li>
+            <a href="/movies">
+              <i className="fa fa-film blue" />
+              Movies
+            </a>
+          </li>
+          <li>
+            <a href="/shows">
+              <i className="fa fa-television darkgreen" />
+              Shows
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
   )
 }

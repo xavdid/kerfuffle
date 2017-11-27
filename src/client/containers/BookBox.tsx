@@ -6,26 +6,29 @@ const gBooksAPIURL = (gbid: string) => {
   return `https://www.googleapis.com/books/v1/volumes/${gbid}`
 }
 
-export class BookBox extends React.Component<
-  {},
-  { books: ABook[]; index: number; bookDetails: { [id: string]: GBook } }
-> {
+type BookBoxState = {
+  books: ABook[]
+  index: number
+  bookDetails: { [id: string]: GBook }
+  loading: boolean
+}
+
+export class BookBox extends React.Component<{}, BookBoxState> {
   constructor(props = {}) {
     super(props)
-    this.state = { books: [], index: 0, bookDetails: {} }
+    this.state = { books: [], index: 0, bookDetails: {}, loading: true }
     this.nextBook = this.nextBook.bind(this)
   }
   async componentDidMount() {
     console.log('mounting!')
     const books: ABook[] = await (await fetch('/api/abooks')).json()
 
-    this.setState({ books: books, bookDetails: {} })
+    this.setState({ books: books, loading: false })
     this.storeBookInfo(books[this.state.index].fields[ABookFields.gbid])
   }
 
-  shouldComponentUpdate(np: any, ns: any) {
+  shouldComponentUpdate(np: {}, ns: BookBoxState) {
     // console.log('PROPS', this.props, 'becomes', np)
-    console.log('STATE', this.state, 'becomes', ns)
     return Boolean(
       ns.books.length &&
         ns.bookDetails[ns.books[ns.index].fields[ABookFields.gbid]]
@@ -56,6 +59,9 @@ export class BookBox extends React.Component<
   render() {
     return (
       <div>
+        <h1>
+          So you're looking for a <span className="purple">book</span>
+        </h1>
         {this.state.books.length ? (
           <Book
             {...this.state.bookDetails[
@@ -67,7 +73,11 @@ export class BookBox extends React.Component<
           className="btn btn-default btn-lg spaced"
           onClick={this.nextBook}
         >
-          <i className="fa fa-refresh fa-2x" />
+          <i
+            className={`fa fa-refresh fa-2x ${
+              this.state.loading ? 'fa-spin' : ''
+            }`}
+          />
         </button>
       </div>
     )
