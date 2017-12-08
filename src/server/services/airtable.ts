@@ -10,8 +10,9 @@ const base = Airtable.base(config.books.id)
 
 export async function fetchUnreadBooks() {
   const records: ABook[] = await base('Books')
-    .select({ view: 'To Read', maxRecords: 5 })
+    .select({ view: 'To Read' })
     .all()
 
+  // airtable return stuff like API by default, so let's get rid of that
   return records.map(record => pickBy(record, (v, k) => !k.startsWith('_')))
 }

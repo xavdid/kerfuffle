@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Book from '../components/Book'
 import { ABookFields, ABook, GBook } from '../../server/services/interfaces'
+import { shuffle } from 'lodash'
 
 const gBooksAPIURL = (gbid: string) => {
   return `https://www.googleapis.com/books/v1/volumes/${gbid}`
@@ -21,7 +22,7 @@ export class BookBox extends React.Component<{}, BookBoxState> {
   }
   async componentDidMount() {
     console.log('mounting!')
-    const books: ABook[] = await (await fetch('/api/abooks')).json()
+    const books: ABook[] = shuffle(await (await fetch('/api/abooks')).json())
 
     this.setState({ books: books, loading: false })
     this.storeBookInfo(books[this.state.index].fields[ABookFields.gbid])

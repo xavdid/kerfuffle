@@ -15,7 +15,6 @@ app.use(helmet())
 // if (!app.get('production')) {
 //   require('dotenv').load()
 // }
-console.log('keys', process.env.AIRTABLE_API_KEY, process.env.TMDB_API_KEY)
 
 import config from './config'
 import { fetchUnreadBooks } from './services/airtable'
