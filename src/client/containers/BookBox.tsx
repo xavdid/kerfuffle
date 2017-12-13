@@ -1,5 +1,8 @@
 import * as React from 'react'
 import Book from '../components/Book'
+import Header from '../components/Header'
+import NextButton from '../components/NextButton'
+
 import { ABookFields, ABook, GBook } from '../../server/services/interfaces'
 import { shuffle } from 'lodash'
 
@@ -15,11 +18,12 @@ type BookBoxState = {
 }
 
 export class BookBox extends React.Component<{}, BookBoxState> {
-  constructor(props = {}) {
+  constructor(props: any) {
     super(props)
     this.state = { books: [], index: 0, bookDetails: {}, loading: true }
     this.nextBook = this.nextBook.bind(this)
   }
+
   async componentDidMount() {
     console.log('mounting!')
     const books: ABook[] = shuffle(await (await fetch('/api/abooks')).json())
@@ -39,7 +43,7 @@ export class BookBox extends React.Component<{}, BookBoxState> {
   async nextBook() {
     const nextIndex = (this.state.index + 1) % this.state.books.length
     const nextId = this.state.books[nextIndex].fields[ABookFields.gbid]
-    this.storeBookInfo(nextId)
+    await this.storeBookInfo(nextId) // await needed?
     this.setState({ index: nextIndex })
   }
 
@@ -60,9 +64,9 @@ export class BookBox extends React.Component<{}, BookBoxState> {
   render() {
     return (
       <div>
-        <h1>
-          So you're looking for a <span className="purple">book</span>
-        </h1>
+        <Header mediaType="books" />
+        <NextButton click={this.nextBook} loading={this.state.loading} />
+
         {this.state.books.length ? (
           <Book
             {...this.state.bookDetails[
@@ -70,16 +74,6 @@ export class BookBox extends React.Component<{}, BookBoxState> {
             ]}
           />
         ) : null}
-        <button
-          className="btn btn-default btn-lg spaced"
-          onClick={this.nextBook}
-        >
-          <i
-            className={`fa fa-refresh fa-2x ${
-              this.state.loading ? 'fa-spin' : ''
-            }`}
-          />
-        </button>
       </div>
     )
   }

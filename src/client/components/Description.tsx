@@ -8,7 +8,7 @@ export default (props: { description: string; extras?: string[] }) => {
   return (
     <div className="col-sm-8">
       <p className="text-justify">
-        {text} {props.extras ? props.extras.map(i => `[${i}]`).join(' ') : ''}
+        {text} {(props.extras || []).map(i => `[${i}]`).join(' ')}
       </p>
     </div>
   )

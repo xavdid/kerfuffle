@@ -43,10 +43,15 @@ export default withRouter((props: {}) => {
         <ul className="nav navbar-nav">
           {mediaTypes.map(mt => {
             return (
-              <li className={p.location.pathname === `/${mt}` ? 'active' : ''}>
+              <li
+                key={mt}
+                className={p.location.pathname === `/${mt}` ? 'active' : ''}
+              >
                 <NavLink to={`/${mt}`}>
                   <i
-                    className={`fa fa-${config[mt].icon} ${config[mt].color}`}
+                    className={`fa fa-${config[mt].icon} ${
+                      config[mt].color
+                    } fa-fw`}
                   />
                   {capitalize(mt)}
                 </NavLink>
