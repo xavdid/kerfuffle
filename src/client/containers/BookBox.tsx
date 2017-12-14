@@ -25,7 +25,6 @@ export class BookBox extends React.Component<{}, BookBoxState> {
   }
 
   async componentDidMount() {
-    console.log('mounting!')
     const books: ABook[] = shuffle(await (await fetch('/api/abooks')).json())
 
     this.setState({ books: books, loading: false })

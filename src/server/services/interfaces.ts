@@ -1,3 +1,9 @@
+export enum ABookFields {
+  title = 'Book Name',
+  year = 'Year Published',
+  gbid = 'Google Books ID'
+}
+
 export interface ABook {
   id: string
   fields: {
@@ -27,8 +33,44 @@ export interface GVolumeInfo {
   ratingsCount: number
 }
 
-export enum ABookFields {
-  title = 'Book Name',
-  year = 'Year Published',
-  gbid = 'Google Books ID'
+export enum AMovieFields {
+  title = 'Title',
+  tmdbId = 'TMDB ID',
+  released = 'Originally Released',
+  directors = 'Director'
+}
+
+export interface AMovie {
+  id: string
+  fields: {
+    Title: string
+    // poster: any[] // array of file attachments
+    Director: string[]
+    'TMDB ID': string
+    'Originally Released': string
+  }
+}
+
+export interface TMDBMovie {
+  adult: false
+  backdrop_path: string
+  belongs_to_collection: null
+  budget: number
+  genres: { id: number; name: string }[]
+  homepage: string
+  id: number
+  imdb_id: string
+  original_language: string
+  original_title: string
+  overview: string
+  popularity: number
+  poster_path: string
+  release_date: string
+  runtime: number
+  status: string
+  tagline: string
+  title: string
+  video: boolean
+  vote_average: string
+  vote_count: string
 }

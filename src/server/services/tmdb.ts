@@ -1,24 +1,17 @@
 // perform searches against the trakt api
-import * as request from 'request-promise'
+import * as got from 'got'
+import { TMDBMovie } from './interfaces'
 
-function opts(terms: string) {
-  return {
-    method: 'GET',
-    uri: 'https://api.themoviedb.org/3/search/multi',
-    qs: {
-      api_key: process.env.TMDB_API_KEY,
-      query: terms
+function tmdbRequest(resource: 'movie' | 'tv', id: string) {
+  return got(`https://api.themoviedb.org/3/${resource}/${id}`, {
+    query: {
+      api_key: process.env.TMDB_API_KEY
     },
-    json: true,
-    transform: (res: any) => {
-      return res.results[0]
-    },
-    transform2xxOnly: true
-  }
+    json: true
+  })
 }
 
-module.exports = {
-  search: function(query: string) {
-    return request(opts(query))
-  }
+export async function fetchMovieDetails(tmdbId: string): Promise<TMDBMovie> {
+  const res = await tmdbRequest('movie', tmdbId)
+  return res.body
 }

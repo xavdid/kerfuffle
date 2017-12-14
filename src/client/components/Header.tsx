@@ -7,7 +7,7 @@ export default (props: { mediaType: string }) => {
       So you're looking for a{' '}
       <span className={config[props.mediaType].color}>
         {props.mediaType.slice(0, -1)}
-      </span>
+      </span>.
     </h1>
   )
 }
