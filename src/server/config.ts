@@ -32,4 +32,9 @@ const config: { [x: string]: ConfigRecord } = {
   }
 }
 
+export const detailsUrls: { [mt: string]: (id: string) => string } = {
+  movies: (id: string) => `/api/movie/${id}`,
+  books: (id: string) => `https://www.googleapis.com/books/v1/volumes/${id}`
+}
+
 export default config

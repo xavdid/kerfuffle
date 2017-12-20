@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { AMovie, TMDBMovie } from '../../server/services/interfaces'
+import { TMDBMovie } from '../../server/services/interfaces'
 import Title from './Title'
 import Info from './Info'
 

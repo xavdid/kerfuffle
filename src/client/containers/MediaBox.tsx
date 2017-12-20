@@ -3,15 +3,20 @@ import Book from '../components/Book'
 import Header from '../components/Header'
 import NextButton from '../components/NextButton'
 
-import { shuffle } from 'lodash'
 import {
   AirtableRecord,
   Details,
-  ExternalID
+  MediaType
 } from '../../server/services/interfaces'
 
+import MediaItem from '../classes/MediaItem'
+
+import { shuffle } from 'lodash'
+
+import { detailsUrls } from '../../server/config'
+
 type MediaBoxState = {
-  items: AirtableRecord[]
+  items: MediaItem[]
   index: number
   details: { [id: string]: Details }
   loading: boolean
@@ -21,11 +26,8 @@ export default abstract class MediaBox extends React.Component<
   {},
   MediaBoxState
 > {
-  idStr: ExternalID
-  fetchEndpoint: string
-  detailsUrl: (id: string) => string
-  mediaType: string
-  comp: any
+  mediaType: MediaType
+  component: (props: any) => JSX.Element | null
 
   constructor(props: any) {
     super(props)
@@ -36,35 +38,43 @@ export default abstract class MediaBox extends React.Component<
 
   setup() {}
 
+  async fetchItems() {
+    const rawItems = (await (await fetch(
+      // TODO: remove a
+      `/api/a${this.mediaType}`
+    )).json()) as AirtableRecord[]
+    const items = rawItems.map(i => new MediaItem(i, this.mediaType))
+    return shuffle(items)
+  }
+
   async componentDidMount() {
-    const items = shuffle(
-      await (await fetch(this.fetchEndpoint)).json()
-    ) as AirtableRecord[]
+    const items = await this.fetchItems()
 
     this.setState({ items: items, loading: false })
-    this.storeBookInfo(items[this.state.index].fields[this.idStr])
+    this.storeDetails(items[this.state.index].extid)
   }
 
   shouldComponentUpdate(np: {}, ns: MediaBoxState) {
-    const nextId = ns.items[ns.index].fields[this.idStr]
+    const nextId = ns.items[ns.index].extid
     return Boolean(ns.items.length && ns.details[nextId])
   }
 
   async nextItem() {
     const nextIndex = (this.state.index + 1) % this.state.items.length
-    const a = this.state.items[nextIndex].fields
-    const nextId = this.state.items[nextIndex].fields[this.idStr]
-    await this.storeBookInfo(nextId) // await needed?
+    const nextId = this.state.items[nextIndex].extid
+    await this.storeDetails(nextId) // await needed?
     this.setState({ index: nextIndex })
   }
 
-  async storeBookInfo(id: string) {
-    const item = await (await fetch(this.detailsUrl(id))).json()
+  async storeDetails(id: string) {
+    const d: Details = await (await fetch(
+      detailsUrls[this.mediaType](id)
+    )).json()
 
-    if (!this.state.details[item.id]) {
+    if (!this.state.details[d.id]) {
       this.setState({
         details: {
-          [item.id]: item,
+          [d.id]: d,
           ...this.state.details
         }
       })
@@ -78,10 +88,8 @@ export default abstract class MediaBox extends React.Component<
         <NextButton click={this.nextItem} loading={this.state.loading} />
 
         {this.state.items.length ? (
-          <this.comp
-            {...this.state.details[
-              this.state.items[this.state.index].fields[this.idStr]
-            ]}
+          <this.component
+            {...this.state.details[this.state.items[this.state.index].extid]}
           />
         ) : null}
       </div>

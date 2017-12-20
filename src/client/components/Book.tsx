@@ -1,13 +1,11 @@
 import * as React from 'react'
 
-import { ABookFields, ABook, GBook } from '../../server/services/interfaces'
+import { GBook } from '../../server/services/interfaces'
 import Title from './Title'
 import Info from './Info'
 
 const gBooksCoverImageURL = (id: string) => {
-  return `https://books.google.com/books/content/images/frontcover/${
-    id
-  }?fife=w300-rw`
+  return `https://books.google.com/books/content/images/frontcover/${id}?fife=w300-rw`
 }
 
 // export class Book extends React.Component<GBook> {
