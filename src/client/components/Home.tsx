@@ -1,8 +1,6 @@
 import * as React from 'react'
-import config from '../../server/config'
+import config, { mediaTypes } from '../../server/config'
 import { Link } from 'react-router-dom'
-
-const mediaTypes = Object.keys(config).sort()
 
 export default () => {
   return (

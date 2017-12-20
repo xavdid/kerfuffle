@@ -1,6 +1,4 @@
 import * as React from 'react'
-import config from '../../server/config'
-const mediaTypes = Object.keys(config).sort()
 
 export default () => {
   return (

@@ -16,11 +16,9 @@ app.use(helmet())
 //   require('dotenv').load()
 // }
 
-import config from './config'
+import config, { mediaTypes } from './config'
 import { fetchUnreadBooks, fetchUnwatchedMovies } from './services/airtable'
 import { fetchMovieDetails } from './services/tmdb'
-
-const mediaTypes = Object.keys(config)
 
 // app.set('view engine', 'jade')
 app.use('/static', express.static(path.join(__dirname, '../../public')))

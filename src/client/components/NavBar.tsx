@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
-import config from '../../server/config'
-
-const mediaTypes = Object.keys(config).sort()
+import config, { mediaTypes } from '../../server/config'
 
 interface NavProps {
   location: {
@@ -19,7 +17,8 @@ const capitalize = (s: string) => {
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export default withRouter((props: {}) => {
+export default withRouter((props: any) => {
+  // have to cast here, since it's passed implicitly? ¯\_(ツ)_/¯
   const p = props as NavProps
 
   return (

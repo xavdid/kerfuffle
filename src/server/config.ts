@@ -37,4 +37,6 @@ export const detailsUrls: { [mt: string]: (id: string) => string } = {
   books: (id: string) => `https://www.googleapis.com/books/v1/volumes/${id}`
 }
 
+export const mediaTypes = Object.keys(config).sort()
+
 export default config

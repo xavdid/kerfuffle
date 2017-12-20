@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import BookBox from './BookBox'
-import MovieBox from './MovieBox'
+import BookBox from '../containers/BookBox'
+import MovieBox from '../containers/MovieBox'
 import Home from '../components/Home'
 import NotFound from '../components/NotFound'
 
