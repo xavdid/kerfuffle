@@ -74,3 +74,7 @@ export interface TMDBMovie {
   vote_average: string
   vote_count: string
 }
+
+export type AirtableRecord = AMovie | ABook
+export type Details = TMDBMovie | GBook
+export type ExternalID = AMovieFields.tmdbId | ABookFields.gbid
