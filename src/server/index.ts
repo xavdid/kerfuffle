@@ -17,7 +17,7 @@ app.use(helmet())
 // }
 
 import config, { mediaTypes } from './config'
-import { fetchUnreadBooks, fetchUnwatchedMovies } from './services/airtable'
+import { fetchUnreadBookIds, fetchUnwatchedMovieIds } from './services/airtable'
 import { fetchMovieDetails } from './services/tmdb'
 
 // app.set('view engine', 'jade')
@@ -71,12 +71,12 @@ const services: { [x: string]: any } = {
 // )
 
 app.get('/api/abooks', async (req, res) => {
-  res.json(await fetchUnreadBooks())
+  res.json(await fetchUnreadBookIds())
 })
 
 app.get('/api/amovies', async (req, res, next) => {
   // try {
-  res.json(await fetchUnwatchedMovies())
+  res.json(await fetchUnwatchedMovieIds())
   // } catch (e) {
   //   console.log(e)
   //   next(e)

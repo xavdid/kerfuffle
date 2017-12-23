@@ -1,12 +1,9 @@
 import * as React from 'react'
 
 import { TMDBMovie } from '../../server/services/interfaces'
+import { imageUrl } from '../../server/config'
 import Title from './Title'
 import Info from './Info'
-
-const tmdbCoverImageURL = (id: string) => {
-  return `https://image.tmdb.org/t/p/w500${id}`
-}
 
 // export class Book extends React.Component<GBook> {
 export default (props: TMDBMovie) => {
@@ -15,7 +12,7 @@ export default (props: TMDBMovie) => {
       <Title title={props.title} />
       <Info
         description={props.overview}
-        url={tmdbCoverImageURL(props.poster_path)}
+        url={imageUrl(props.poster_path, 'tmdb')}
       />
     </div>
   ) : null

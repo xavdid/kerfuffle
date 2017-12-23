@@ -75,7 +75,4 @@ export interface TMDBMovie {
   vote_count: string
 }
 
-export type AirtableRecord = AMovie | ABook
 export type Details = TMDBMovie | GBook
-export type ExternalID = AMovieFields.tmdbId | ABookFields.gbid
-export type MediaType = 'books' | 'movies' | 'shows'

@@ -1,12 +1,10 @@
 import * as React from 'react'
 
 import { GBook } from '../../server/services/interfaces'
+import { imageUrl } from '../../server/config'
+
 import Title from './Title'
 import Info from './Info'
-
-const gBooksCoverImageURL = (id: string) => {
-  return `https://books.google.com/books/content/images/frontcover/${id}?fife=w300-rw`
-}
 
 // export class Book extends React.Component<GBook> {
 export default (props: GBook) => {
@@ -19,7 +17,7 @@ export default (props: GBook) => {
       />
       <Info
         description={props.volumeInfo.description}
-        url={gBooksCoverImageURL(props.id)}
+        url={imageUrl(props.id, 'gbooks')}
       />
     </div>
   ) : null
