@@ -8,6 +8,7 @@ import NotFound from '../components/NotFound'
 
 import NavBar from './NavBar'
 import { MediaType } from '../../server/config'
+import Footer from './Footer'
 
 const MBox = (t: MediaType) => {
   return <MediaBox mediaType={t} />
@@ -23,7 +24,6 @@ export class Main extends React.Component {
             <div className="main">
               <Switch>
                 <Route exact path="/" component={Home} />
-                {/* could have generic "box" class that takes a media type */}
                 <Route path="/books" component={() => MBox('books')} />
                 <Route path="/shows" component={() => MBox('shows')} />
                 <Route path="/movies" component={() => MBox('movies')} />
@@ -31,6 +31,7 @@ export class Main extends React.Component {
               </Switch>
             </div>
           </div>
+          <Footer />
         </div>
       </Router>
     )
