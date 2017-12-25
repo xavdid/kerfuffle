@@ -1,12 +1,17 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import BookBox from '../containers/BookBox'
-import MovieBox from '../containers/MovieBox'
-import ShowBox from '../containers/ShowBox'
+
+import MediaBox from '../containers/MediaBox'
+
 import Home from '../components/Home'
 import NotFound from '../components/NotFound'
 
 import NavBar from './NavBar'
+import { MediaType } from '../../server/config'
+
+const MBox = (t: MediaType) => {
+  return <MediaBox mediaType={t} />
+}
 
 export class Main extends React.Component {
   render() {
@@ -19,9 +24,9 @@ export class Main extends React.Component {
               <Switch>
                 <Route exact path="/" component={Home} />
                 {/* could have generic "box" class that takes a media type */}
-                <Route path="/books" component={BookBox} />
-                <Route path="/shows" component={ShowBox} />
-                <Route path="/movies" component={MovieBox} />
+                <Route path="/books" component={() => MBox('books')} />
+                <Route path="/shows" component={() => MBox('shows')} />
+                <Route path="/movies" component={() => MBox('movies')} />
                 <Route component={NotFound} />
               </Switch>
             </div>

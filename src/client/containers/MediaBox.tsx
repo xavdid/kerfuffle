@@ -1,5 +1,7 @@
 import * as React from 'react'
 import Book from '../components/Book'
+import Movie from '../components/Movie'
+import Show from '../components/Show'
 import Header from '../components/Header'
 import NextButton from '../components/NextButton'
 
@@ -8,12 +10,23 @@ import { MediaType } from '../../server/config'
 
 import { shuffle } from 'lodash'
 
-const detailsUrls: { [mt: string]: (id: string) => string } = {
-  movies: (id: string) => `/api/movie/${id}`,
-  books: (id: string) => `https://www.googleapis.com/books/v1/volumes/${id}`,
-  shows: (id: string) => `/api/show/${id}`
+const mediaConf = {
+  books: {
+    detailsUrl: (id: string) => `/api/movie/${id}`,
+    component: Book
+  },
+  movies: {
+    detailsUrl: (id: string) =>
+      `https://www.googleapis.com/books/v1/volumes/${id}`,
+    component: Movie
+  },
+  shows: {
+    detailsUrl: (id: string) => `/api/show/${id}`,
+    component: Show
+  }
 }
 
+type MediaBoxProps = { mediaType: MediaType }
 type MediaBoxState = {
   ids: string[]
   index: number
@@ -21,26 +34,21 @@ type MediaBoxState = {
   loading: boolean
 }
 
-export default abstract class MediaBox extends React.Component<
-  {},
+export default class MediaBox extends React.Component<
+  MediaBoxProps,
   MediaBoxState
 > {
-  mediaType: MediaType
-  component: (props: any) => JSX.Element | null
-
-  constructor(props: any) {
+  config: any
+  constructor(props: MediaBoxProps) {
     super(props)
-    this.setup()
     this.state = { ids: [], index: 0, details: {}, loading: true }
     this.nextItem = this.nextItem.bind(this)
   }
 
-  setup() {}
-
   async fetchIds() {
     const items = (await (await fetch(
       // TODO: remove a
-      `/api/a${this.mediaType}`
+      `/api/a${this.props.mediaType}`
     )).json()) as string[]
 
     return shuffle(items)
@@ -68,7 +76,7 @@ export default abstract class MediaBox extends React.Component<
 
   async storeDetails(id: string) {
     const newDetails: Details = await (await fetch(
-      detailsUrls[this.mediaType](id)
+      mediaConf[this.props.mediaType].detailsUrl(id)
     )).json()
 
     if (!this.state.details[newDetails.id]) {
@@ -82,14 +90,15 @@ export default abstract class MediaBox extends React.Component<
   }
 
   render() {
+    const Comp = mediaConf[this.props.mediaType].component
     return (
       <div>
-        <Header mediaType={this.mediaType} />
+        <Header mediaType={this.props.mediaType} />
         <NextButton click={this.nextItem} loading={this.state.loading} />
 
         {this.state.ids.length ? (
-          <this.component
-            {...this.state.details[this.state.ids[this.state.index]]}
+          <Comp
+            {...this.state.details[this.state.ids[this.state.index]] as any}
           />
         ) : null}
       </div>
