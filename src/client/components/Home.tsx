@@ -1,6 +1,6 @@
 import * as React from 'react'
-import config, { mediaTypes } from '../../server/config'
 import { Link } from 'react-router-dom'
+import config, { mediaTypes } from '../../server/config'
 
 export default () => {
   return (

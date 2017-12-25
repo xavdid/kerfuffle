@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import { GBook } from '../../server/services/interfaces'
 import { imageUrl } from '../../server/config'
+import { GBook } from '../../server/services/interfaces'
 
-import Title from './Title'
 import Info from './Info'
+import Title from './Title'
 
 // export class Book extends React.Component<GBook> {
 export default (props: GBook) => {
@@ -17,6 +17,10 @@ export default (props: GBook) => {
       />
       <Info
         description={props.volumeInfo.description}
+        extras={[
+          props.volumeInfo.publishedDate.substring(0, 4),
+          props.volumeInfo.categories[0]
+        ]}
         url={imageUrl(props.id, 'gbooks')}
       />
     </div>

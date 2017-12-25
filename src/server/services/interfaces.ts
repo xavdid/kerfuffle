@@ -51,13 +51,17 @@ export interface AMovie {
   }
 }
 
-type genre = { id: number; name: string }[]
+interface Genre {
+  id: number
+  name: string
+}
+
 export interface TMDBMovie {
   adult: false
   backdrop_path: string
   belongs_to_collection: null
   budget: number
-  genres: genre[]
+  genres: Genre[]
   homepage: string
   id: number
   imdb_id: string
@@ -95,15 +99,15 @@ export interface AShow {
 
 export interface TMDBShow {
   backdrop_path: string
-  created_by: {
+  created_by: Array<{
     id: number
     name: string
     gender: number
     profile_path: string
-  }[]
+  }>
   episode_run_time: number[]
   first_air_date: string
-  genres: genre[]
+  genres: Genre[]
   homepage: string
   id: number
   in_production: boolean
@@ -113,13 +117,13 @@ export interface TMDBShow {
   number_of_seasons: number
   overview: string
   poster_path: string
-  seasons: {
+  seasons: Array<{
     air_date: string
     episode_count: number
     id: number
     poster_path: string
     season_number: number
-  }[]
+  }>
   // statuses from https://www.themoviedb.org/talk/58b1cfbac3a368077800feb5
   status:
     | 'Returning Series'

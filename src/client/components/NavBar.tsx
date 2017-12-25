@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { NavLink, withRouter } from 'react-router-dom'
-import config, { mediaTypes } from '../../server/config'
+
 import { capitalize } from 'lodash'
+import { NavLink, withRouter } from 'react-router-dom'
+
+import config, { mediaTypes } from '../../server/config'
 
 interface NavProps {
   location: {

@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import NavBar from './NavBar'
 import Home from '../components/Home'
-import MediaBox from '../containers/MediaBox'
 import NotFound from '../components/NotFound'
+import MediaBox from '../containers/MediaBox'
 import Footer from './Footer'
+import NavBar from './NavBar'
 
 import { MediaType } from '../../server/config'
 
@@ -14,7 +14,7 @@ const MBox = (t: MediaType) => {
 }
 
 export class Main extends React.Component {
-  render() {
+  public render() {
     return (
       <Router>
         <div>

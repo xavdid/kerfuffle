@@ -1,13 +1,7 @@
+import { capitalize } from 'lodash'
+
 import config, { MediaType } from '../config'
-import { pickBy, capitalize } from 'lodash'
-import {
-  ABook,
-  ABookFields,
-  AMovie,
-  AMovieFields,
-  AShow,
-  AShowFields
-} from './interfaces'
+import { ABookFields, AMovieFields, AShowFields } from './interfaces'
 
 const Airtable = new (require('airtable'))({
   apiKey: process.env.AIRTABLE_API_KEY

@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc && webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "npm run build",
+    "posttest": "npm run lint",
+    "lint": "tslint -p tsconfig.json",
+    "heroku-postbuild": "npm run build",
     "start": "node lib/server/index.js"
   },
   "repository": {
@@ -39,7 +41,7 @@
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
     "serve-favicon": "^2.3.0",
-    "striptags": "xavdid/striptags",
+    "striptags": "^3.1.1",
     "typescript": "2.6.1",
     "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "^3.8.1",
@@ -47,7 +49,9 @@
   },
   "devDependencies": {
     "nodemon": "^1.12.1",
-    "prettier": "^1.9.2"
+    "prettier": "^1.9.2",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0"
   },
   "prettier": {
     "semi": false,

@@ -1,6 +1,5 @@
 // perform searches against the trakt api
 import * as got from 'got'
-import { TMDBMovie, TMDBShow } from './interfaces'
 
 function tmdbRequest(resource: 'movie' | 'tv', id: string) {
   return got(`https://api.themoviedb.org/3/${resource}/${id}`, {

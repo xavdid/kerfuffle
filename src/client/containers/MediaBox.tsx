@@ -1,13 +1,13 @@
 import * as React from 'react'
 
 import Book from '../components/Book'
-import Movie from '../components/Movie'
-import Show from '../components/Show'
 import Header from '../components/Header'
+import Movie from '../components/Movie'
 import NextButton from '../components/NextButton'
+import Show from '../components/Show'
 
-import { Details } from '../../server/services/interfaces'
 import { MediaType } from '../../server/config'
+import { Details } from '../../server/services/interfaces'
 
 import { shuffle } from 'lodash'
 
@@ -28,8 +28,10 @@ const mediaConf = {
   }
 }
 
-type MediaBoxProps = { mediaType: MediaType }
-type MediaBoxState = {
+interface MediaBoxProps {
+  mediaType: MediaType
+}
+interface MediaBoxState {
   ids: string[]
   index: number
   details: { [id: string]: Details }
@@ -58,7 +60,7 @@ export default class MediaBox extends React.Component<
   async componentDidMount() {
     const ids = await this.fetchIds()
 
-    this.setState({ ids: ids, loading: false })
+    this.setState({ ids, loading: false })
     this.storeDetails(ids[this.state.index])
   }
 
