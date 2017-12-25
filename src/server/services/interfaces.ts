@@ -78,7 +78,8 @@ export interface TMDBMovie {
 
 export enum AShowFields {
   numSeasons = '# Seasons',
-  fate = 'Ultimate Fate'
+  fate = 'Ultimate Fate',
+  tmdbId = 'TMDB ID'
 }
 
 export interface AShow {
@@ -88,6 +89,7 @@ export interface AShow {
     '# Seasons': number
     Format: string
     'Ultimate Fate': string
+    'TMDB ID': string
   }
 }
 

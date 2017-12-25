@@ -1,6 +1,13 @@
 import config from '../config'
 import { pickBy, capitalize } from 'lodash'
-import { ABook, ABookFields, AMovieFields, AMovie } from './interfaces'
+import {
+  ABook,
+  ABookFields,
+  AMovieFields,
+  AMovie,
+  AShow,
+  AShowFields
+} from './interfaces'
 
 const Airtable = new (require('airtable'))({
   apiKey: process.env.AIRTABLE_API_KEY
@@ -8,7 +15,7 @@ const Airtable = new (require('airtable'))({
 
 export async function fetchUnreadBookIds() {
   const base = Airtable.base(config.books.baseId)
-  const records: ABook[] = await base(capitalize(config.books.view))
+  const records: ABook[] = await base(capitalize(config.books.table))
     .select({ view: 'To Read' })
     .all()
 
@@ -17,18 +24,18 @@ export async function fetchUnreadBookIds() {
 
 export async function fetchUnwatchedMovieIds() {
   const base = Airtable.base(config.movies.baseId)
-  const records: AMovie[] = await base(capitalize(config.movies.view))
+  const records: AMovie[] = await base(capitalize(config.movies.table))
     .select({ view: 'To Watch' })
     .all()
 
   return records.map(record => record.fields[AMovieFields.tmdbId])
 }
 
-export async function fetchUnwathedShowIds() {
+export async function fetchUnwatchedShowIds() {
   const base = Airtable.base(config.shows.baseId)
-  const records: AMovie[] = await base(capitalize(config.shows.view))
+  const records: AShow[] = await base(capitalize(config.shows.table))
     .select({ view: 'To Watch' })
     .all()
 
-  return records.map(record => record.fields[AMovieFields.tmdbId])
+  return records.map(record => record.fields[AShowFields.tmdbId])
 }

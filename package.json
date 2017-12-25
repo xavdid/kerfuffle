@@ -4,8 +4,9 @@
   "description": "Randomly fetch something from your media list",
   "main": "lib/server/index.js",
   "scripts": {
+    "build": "tsc && webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "tsc",
+    "postinstall": "npm run build",
     "start": "node lib/server/index.js"
   },
   "repository": {
@@ -29,28 +30,24 @@
     "@types/request-promise": "4.1.39",
     "@types/serve-favicon": "2.2.30",
     "airtable": "^0.5.0",
-    "angular": "^1.5.7",
-    "browserify-middleware": "^7.0.0",
-    "dotenv": "^2.0.0",
+    "awesome-typescript-loader": "^3.4.0",
     "express": "^4.14.0",
     "got": "^8.0.0",
     "helmet": "^3.0.0",
-    "jade": "^1.11.0",
     "lodash": "^4.17.4",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
-    "request": "^2.76.0",
-    "request-promise": "^4.2.2",
     "serve-favicon": "^2.3.0",
     "striptags": "xavdid/striptags",
-    "typescript": "2.6.1"
+    "typescript": "2.6.1",
+    "uglifyjs-webpack-plugin": "^1.1.4",
+    "webpack": "^3.8.1",
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.4.0",
-    "dotenv": "^2.0.0",
     "nodemon": "^1.12.1",
-    "webpack": "^3.8.1"
+    "prettier": "^1.9.2"
   },
   "prettier": {
     "semi": false,

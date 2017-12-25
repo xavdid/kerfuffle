@@ -12,12 +12,13 @@ import { shuffle } from 'lodash'
 
 const mediaConf = {
   books: {
-    detailsUrl: (id: string) => `/api/movie/${id}`,
+    detailsUrl: (id: string) =>
+      `https://www.googleapis.com/books/v1/volumes/${id}`,
+
     component: Book
   },
   movies: {
-    detailsUrl: (id: string) =>
-      `https://www.googleapis.com/books/v1/volumes/${id}`,
+    detailsUrl: (id: string) => `/api/movie/${id}`,
     component: Movie
   },
   shows: {
@@ -48,7 +49,7 @@ export default class MediaBox extends React.Component<
   async fetchIds() {
     const items = (await (await fetch(
       // TODO: remove a
-      `/api/a${this.props.mediaType}`
+      `/api/${this.props.mediaType}`
     )).json()) as string[]
 
     return shuffle(items)

@@ -3,33 +3,37 @@ type service = 'tmdb' | 'gbooks'
 
 interface ConfigRecord {
   baseId: string
-  service: service
+  detailsService: service // where the details come from
+  table: string
   view: string
   color: string
   icon: string
 }
 
 const config: { [x: string]: ConfigRecord } = {
-  shows: {
-    baseId: 'appgycccClQwN0zHz',
-    service: 'tmdb',
-    view: 'shows',
-    color: 'darkgreen',
-    icon: 'television'
-  },
   books: {
     baseId: 'appv2mhWOgkRhR4rK',
-    service: 'gbooks',
-    view: 'books',
+    detailsService: 'gbooks',
+    table: 'books',
+    view: 'To Read',
     color: 'purple',
     icon: 'book'
   },
   movies: {
     baseId: 'appctKQDyHbyqNJOY',
-    service: 'tmdb',
-    view: 'movies',
+    detailsService: 'tmdb',
+    table: 'movies',
+    view: 'To Watch',
     color: 'blue',
     icon: 'film'
+  },
+  shows: {
+    baseId: 'appgycccClQwN0zHz',
+    detailsService: 'tmdb',
+    table: 'shows',
+    view: 'To Watch',
+    color: 'darkgreen',
+    icon: 'television'
   }
 }
 
