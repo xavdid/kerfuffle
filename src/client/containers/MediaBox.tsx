@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import Book from '../components/Book'
 import Movie from '../components/Movie'
 import Show from '../components/Show'
@@ -39,7 +40,6 @@ export default class MediaBox extends React.Component<
   MediaBoxProps,
   MediaBoxState
 > {
-  config: any
   constructor(props: MediaBoxProps) {
     super(props)
     this.state = { ids: [], index: 0, details: {}, loading: true }
