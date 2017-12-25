@@ -1,0 +1,10 @@
+# each line adds 100 to the port
+
+# runs the server, server first to get the port I want
+web: ./node_modules/.bin/nodemon -w lib/server -d 1
+
+# this double compiles FE right now, I guess it's fine
+ts: ./node_modules/.bin/tsc -w
+
+# compiles & bundles frontend
+webpack: ./node_modules/.bin/webpack -w
