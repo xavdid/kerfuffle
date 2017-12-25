@@ -1,6 +1,6 @@
 // perform searches against the trakt api
 import * as got from 'got'
-import { TMDBMovie } from './interfaces'
+import { TMDBMovie, TMDBShow } from './interfaces'
 
 function tmdbRequest(resource: 'movie' | 'tv', id: string) {
   return got(`https://api.themoviedb.org/3/${resource}/${id}`, {
@@ -11,12 +11,15 @@ function tmdbRequest(resource: 'movie' | 'tv', id: string) {
   })
 }
 
-export async function fetchMovieDetails(tmdbId: string): Promise<TMDBMovie> {
-  const res = await tmdbRequest('movie', tmdbId)
-  return res.body
+const fetchMovieDetails = async (tmdbId: string) => {
+  return (await tmdbRequest('movie', tmdbId)).body
 }
 
-export async function fetchShowDetails(tmdbId: string): Promise<TMDBMovie> {
-  const res = await tmdbRequest('tv', tmdbId)
-  return res.body
+const fetchShowDetails = async (tmdbId: string) => {
+  return (await tmdbRequest('tv', tmdbId)).body
+}
+
+export default {
+  movies: fetchMovieDetails,
+  shows: fetchShowDetails
 }

@@ -45,7 +45,7 @@ export const imageUrl = (id: string, serv: service) => {
   }
 }
 
-export const mediaTypes = Object.keys(config).sort()
 export type MediaType = 'books' | 'movies' | 'shows'
+export const mediaTypes = Object.keys(config).sort() as MediaType[]
 
 export default config

@@ -1,10 +1,10 @@
-import config from '../config'
+import config, { MediaType } from '../config'
 import { pickBy, capitalize } from 'lodash'
 import {
   ABook,
   ABookFields,
-  AMovieFields,
   AMovie,
+  AMovieFields,
   AShow,
   AShowFields
 } from './interfaces'
@@ -13,29 +13,29 @@ const Airtable = new (require('airtable'))({
   apiKey: process.env.AIRTABLE_API_KEY
 })
 
-export async function fetchUnreadBookIds() {
-  const base = Airtable.base(config.books.baseId)
-  const records: ABook[] = await base(capitalize(config.books.table))
-    .select({ view: 'To Read' })
+const fetchIds = async (mt: MediaType, extId: string) => {
+  const base = Airtable.base(config[mt].baseId)
+  const records = await base(capitalize(config[mt].table))
+    .select({ view: config[mt].view })
     .all()
 
-  return records.map(record => record.fields[ABookFields.gbid])
+  return records.map((record: any) => record.fields[extId])
 }
 
-export async function fetchUnwatchedMovieIds() {
-  const base = Airtable.base(config.movies.baseId)
-  const records: AMovie[] = await base(capitalize(config.movies.table))
-    .select({ view: 'To Watch' })
-    .all()
-
-  return records.map(record => record.fields[AMovieFields.tmdbId])
+const fetchUnreadBookIds = async () => {
+  return await fetchIds('books', ABookFields.gbid)
 }
 
-export async function fetchUnwatchedShowIds() {
-  const base = Airtable.base(config.shows.baseId)
-  const records: AShow[] = await base(capitalize(config.shows.table))
-    .select({ view: 'To Watch' })
-    .all()
+const fetchUnwatchedMovieIds = async () => {
+  return await fetchIds('movies', AMovieFields.tmdbId)
+}
 
-  return records.map(record => record.fields[AShowFields.tmdbId])
+const fetchUnwatchedShowIds = async () => {
+  return await fetchIds('shows', AShowFields.tmdbId)
+}
+
+export default {
+  books: fetchUnreadBookIds,
+  movies: fetchUnwatchedMovieIds,
+  shows: fetchUnwatchedShowIds
 }

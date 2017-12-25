@@ -18,11 +18,11 @@ const mediaConf = {
     component: Book
   },
   movies: {
-    detailsUrl: (id: string) => `/api/movie/${id}`,
+    detailsUrl: (id: string) => `/api/movies/${id}`,
     component: Movie
   },
   shows: {
-    detailsUrl: (id: string) => `/api/show/${id}`,
+    detailsUrl: (id: string) => `/api/shows/${id}`,
     component: Show
   }
 }
