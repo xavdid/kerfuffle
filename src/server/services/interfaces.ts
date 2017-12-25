@@ -51,12 +51,13 @@ export interface AMovie {
   }
 }
 
+type genre = { id: number; name: string }[]
 export interface TMDBMovie {
   adult: false
   backdrop_path: string
   belongs_to_collection: null
   budget: number
-  genres: { id: number; name: string }[]
+  genres: genre[]
   homepage: string
   id: number
   imdb_id: string
@@ -75,4 +76,58 @@ export interface TMDBMovie {
   vote_count: string
 }
 
-export type Details = TMDBMovie | GBook
+export enum AShowFields {
+  numSeasons = '# Seasons',
+  fate = 'Ultimate Fate'
+}
+
+export interface AShow {
+  id: string
+  fields: {
+    Name: string
+    '# Seasons': number
+    Format: string
+    'Ultimate Fate': string
+  }
+}
+
+export interface TMDBShow {
+  backdrop_path: string
+  created_by: {
+    id: number
+    name: string
+    gender: number
+    profile_path: string
+  }[]
+  episode_run_time: number[]
+  first_air_date: string
+  genres: genre[]
+  homepage: string
+  id: number
+  in_production: boolean
+  last_air_date: string
+  name: string
+  number_of_episodes: number
+  number_of_seasons: number
+  overview: string
+  poster_path: string
+  seasons: {
+    air_date: string
+    episode_count: number
+    id: number
+    poster_path: string
+    season_number: number
+  }[]
+  // statuses from https://www.themoviedb.org/talk/58b1cfbac3a368077800feb5
+  status:
+    | 'Returning Series'
+    | 'Planned'
+    | 'In Production'
+    | 'Ended'
+    | 'Canceled'
+    | 'Pilot'
+  vote_average: number
+  vote_count: number
+}
+
+export type Details = TMDBMovie | GBook | TMDBShow

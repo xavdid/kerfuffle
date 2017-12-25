@@ -10,8 +10,8 @@ import { shuffle } from 'lodash'
 
 const detailsUrls: { [mt: string]: (id: string) => string } = {
   movies: (id: string) => `/api/movie/${id}`,
-  books: (id: string) => `https://www.googleapis.com/books/v1/volumes/${id}`
-  // shows: (id: string) => `/api/shows/${id}`
+  books: (id: string) => `https://www.googleapis.com/books/v1/volumes/${id}`,
+  shows: (id: string) => `/api/show/${id}`
 }
 
 type MediaBoxState = {

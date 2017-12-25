@@ -33,8 +33,8 @@ const config: { [x: string]: ConfigRecord } = {
   }
 }
 
-export const imageUrl = (id: string, mt: service) => {
-  if (mt === 'gbooks') {
+export const imageUrl = (id: string, serv: service) => {
+  if (serv === 'gbooks') {
     return `https://books.google.com/books/content/images/frontcover/${id}?fife=w300-rw`
   } else {
     return `https://image.tmdb.org/t/p/w500${id}`

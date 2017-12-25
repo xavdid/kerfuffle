@@ -2,6 +2,7 @@ import * as React from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import BookBox from '../containers/BookBox'
 import MovieBox from '../containers/MovieBox'
+import ShowBox from '../containers/ShowBox'
 import Home from '../components/Home'
 import NotFound from '../components/NotFound'
 
@@ -19,12 +20,7 @@ export class Main extends React.Component {
                 <Route exact path="/" component={Home} />
                 {/* could have generic "box" class that takes a media type */}
                 <Route path="/books" component={BookBox} />
-                <Route
-                  path="/shows"
-                  component={() => {
-                    return <h1>TV</h1>
-                  }}
-                />
+                <Route path="/shows" component={ShowBox} />
                 <Route path="/movies" component={MovieBox} />
                 <Route component={NotFound} />
               </Switch>

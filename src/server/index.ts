@@ -17,8 +17,12 @@ app.use(helmet())
 // }
 
 import config, { mediaTypes } from './config'
-import { fetchUnreadBookIds, fetchUnwatchedMovieIds } from './services/airtable'
-import { fetchMovieDetails } from './services/tmdb'
+import {
+  fetchUnreadBookIds,
+  fetchUnwatchedMovieIds,
+  fetchUnwathedShowIds
+} from './services/airtable'
+import { fetchMovieDetails, fetchShowDetails } from './services/tmdb'
 
 // app.set('view engine', 'jade')
 app.use('/static', express.static(path.join(__dirname, '../../public')))
@@ -74,6 +78,10 @@ app.get('/api/abooks', async (req, res) => {
   res.json(await fetchUnreadBookIds())
 })
 
+app.get('/api/ashows', async (req, res) => {
+  res.json(await fetchUnwathedShowIds())
+})
+
 app.get('/api/amovies', async (req, res, next) => {
   // try {
   res.json(await fetchUnwatchedMovieIds())
@@ -85,6 +93,10 @@ app.get('/api/amovies', async (req, res, next) => {
 
 app.get('/api/movie/:id', async (req, res) => {
   res.json(await fetchMovieDetails(req.params.id))
+})
+
+app.get('/api/show/:id', async (req, res) => {
+  res.json(await fetchShowDetails(req.params.id))
 })
 
 // // get /api/:media

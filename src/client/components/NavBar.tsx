@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import config, { mediaTypes } from '../../server/config'
+import { capitalize } from 'lodash'
 
 interface NavProps {
   location: {
@@ -11,10 +12,6 @@ interface NavProps {
     key: string
   }
   // also history, match
-}
-
-const capitalize = (s: string) => {
-  return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 export default withRouter((props: any) => {

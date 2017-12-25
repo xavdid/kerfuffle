@@ -15,3 +15,8 @@ export async function fetchMovieDetails(tmdbId: string): Promise<TMDBMovie> {
   const res = await tmdbRequest('movie', tmdbId)
   return res.body
 }
+
+export async function fetchShowDetails(tmdbId: string): Promise<TMDBMovie> {
+  const res = await tmdbRequest('tv', tmdbId)
+  return res.body
+}
