@@ -1,7 +1,7 @@
 // perform searches against the trakt api
 import * as got from 'got'
 
-function tmdbRequest(resource: 'movie' | 'tv', id: string) {
+const tmdbRequest = (resource: 'movie' | 'tv', id: string) => {
   return got(`https://api.themoviedb.org/3/${resource}/${id}`, {
     query: {
       api_key: process.env.TMDB_API_KEY

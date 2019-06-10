@@ -136,4 +136,6 @@ export interface TMDBShow {
   vote_count: number
 }
 
-export type Details = TMDBMovie | GBook | TMDBShow
+export type Details = (TMDBMovie | GBook | TMDBShow) & {
+  needToDownload?: boolean
+}

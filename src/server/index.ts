@@ -9,7 +9,7 @@ app.use(helmet())
 // dotenv is loaded by foreman
 
 import { MediaType, mediaTypes } from './config'
-import fetchMethods from './services/airtable'
+import fetchMethods, { bookIdsToDownload } from './services/airtable'
 import fetchDetailMethods from './services/tmdb'
 
 app.use('/static', express.static(path.join(__dirname, '../../public')))
@@ -27,6 +27,10 @@ mediaTypes.map((mt: MediaType) => {
       res.json(await fetchDetailMethods[mt](req.params.id))
     })
   }
+})
+
+app.get('/api/books/toDownload', async (req, res) => {
+  res.json(await bookIdsToDownload())
 })
 
 app.get('*', (req, res) => {

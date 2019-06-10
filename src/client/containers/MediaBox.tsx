@@ -15,7 +15,6 @@ const mediaConf = {
   books: {
     detailsUrl: (id: string) =>
       `https://www.googleapis.com/books/v1/volumes/${id}`,
-
     component: Book
   },
   movies: {
@@ -36,6 +35,7 @@ interface MediaBoxState {
   index: number
   details: { [id: string]: Details }
   loading: boolean
+  downloadedBookIds: Set<string>
 }
 
 export default class MediaBox extends React.Component<
@@ -44,23 +44,37 @@ export default class MediaBox extends React.Component<
 > {
   constructor(props: MediaBoxProps) {
     super(props)
-    this.state = { ids: [], index: 0, details: {}, loading: true }
+    this.state = {
+      ids: [],
+      index: 0,
+      details: {},
+      loading: true,
+      downloadedBookIds: new Set()
+    }
     this.nextItem = this.nextItem.bind(this)
   }
 
   async fetchIds() {
     const items = (await (await fetch(
-      // TODO: remove a
       `/api/${this.props.mediaType}`
     )).json()) as string[]
 
     return shuffle(items)
   }
 
+  async fetchBooksToDownload(): Promise<string[]> {
+    return (await fetch(`/api/books/toDownload`)).json()
+  }
+
   async componentDidMount() {
     const ids = await this.fetchIds()
+    let downloadedBookIds = new Set()
 
-    this.setState({ ids, loading: false })
+    if (this.props.mediaType === 'books') {
+      downloadedBookIds = new Set(await this.fetchBooksToDownload())
+    }
+
+    this.setState({ ids, loading: false, downloadedBookIds })
     this.storeDetails(ids[this.state.index])
   }
 
@@ -81,6 +95,10 @@ export default class MediaBox extends React.Component<
     const newDetails: Details = await (await fetch(
       mediaConf[this.props.mediaType].detailsUrl(id)
     )).json()
+
+    newDetails.needToDownload = this.state.downloadedBookIds.has(
+      String(newDetails.id)
+    )
 
     if (!this.state.details[newDetails.id]) {
       this.setState({

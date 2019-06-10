@@ -16,6 +16,17 @@ const fetchIds = async (mt: MediaType, extId: string) => {
   return records.map((record: any) => record.fields[extId])
 }
 
+export const bookIdsToDownload = async () => {
+  const base = Airtable.base(config.books.baseId)
+  const records = await base(capitalize(config.books.table))
+    .select({ view: 'Need to Download' })
+    .all()
+
+  return records
+    .filter((rename: any) => rename.fields['Need to Download'])
+    .map((record: any) => record.fields[ABookFields.gbid])
+}
+
 const fetchUnreadBookIds = async () => {
   return await fetchIds('books', ABookFields.gbid)
 }

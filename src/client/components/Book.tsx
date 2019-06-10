@@ -7,7 +7,7 @@ import Info from './Info'
 import Title from './Title'
 
 // export class Book extends React.Component<GBook> {
-export default (props: GBook) => {
+export default (props: GBook & { needToDownload: boolean }) => {
   return props.id ? (
     <div>
       <Title
@@ -19,7 +19,8 @@ export default (props: GBook) => {
         description={props.volumeInfo.description}
         extras={[
           props.volumeInfo.publishedDate.substring(0, 4),
-          props.volumeInfo.categories[0]
+          props.volumeInfo.categories[0],
+          props.needToDownload ? 'Need to Download' : 'Downloaded'
         ]}
         url={imageUrl(props.id, 'gbooks')}
       />
