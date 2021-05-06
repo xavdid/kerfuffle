@@ -36,7 +36,7 @@
     "express": "^4.14.0",
     "got": "^8.0.0",
     "helmet": "^3.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
