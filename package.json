@@ -34,7 +34,7 @@
     "airtable": "0.5.0",
     "awesome-typescript-loader": "^3.4.0",
     "express": "^4.14.0",
-    "got": "^8.0.0",
+    "got": "^11.8.5",
     "helmet": "^3.0.0",
     "lodash": "^4.17.4",
     "react": "^16.1.1",
